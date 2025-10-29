@@ -46,7 +46,7 @@ const Education = ({ education = [] }) => {
                             <ul className="space-y-2 mt-4">
                                 {edu.achievements.map((achievement, idx) => (
                                     <li key={idx} className="flex items-start gap-2 text-gray-300">
-                                        <span className="text-space-blue mt-1">▸</span>
+                                        <span className="text-space-blue">▸</span>
                                         <span>{achievement}</span>
                                     </li>
                                 ))}

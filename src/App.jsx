@@ -203,7 +203,7 @@ function App() {
                 <TypingHeader />
 
                 {/* Planets Container - Separate section */}
-                <section id="planets-section" className="relative min-h-screen pb-12">
+                <section id="planets-section" className="relative min-h-screen">
                     {/* Desktop: Absolute positioned planets */}
                     <div className="hidden md:block relative h-screen max-w-7xl mx-auto">
                         {destinations.map(dest => (
