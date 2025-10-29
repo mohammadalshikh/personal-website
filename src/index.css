@@ -115,15 +115,21 @@
     }
 
     .social-links {
-        @apply absolute top-4 right-4 lg:top-20 lg:right-60 z-50 flex gap-3 lg:gap-4;
+        @apply absolute top-4 right-4 lg:top-20 lg:right-60 z-50 flex gap-3 lg:gap-4 transition-all duration-300;
     }
 
     .social-link {
-        @apply p-3 lg:p-4 bg-space-purple/20 border border-space-purple/50 rounded-lg hover:bg-space-purple/30 hover:border-space-cyan transition-all duration-300;
+        @apply p-3 lg:p-4 bg-space-purple/20 border border-space-purple/50 rounded-lg hover:bg-space-purple/30 hover:border-space-cyan transition-colors duration-300;
     }
 
     .name-heading {
-        @apply text-3xl md:text-5xl font-bold text-white text-center mb-6 md:mb-8 animate-fade-in;
+        @apply text-4xl md:text-5xl font-bold text-white text-center mb-6 md:mb-8 animate-fade-in;
+    }
+
+    @media (max-width: 528px) {
+        .name-heading {
+            @apply text-3xl;
+        }
     }
 
     .astronaut-logo-container {
@@ -134,16 +140,30 @@
         @apply px-8 py-3 bg-space-purple/20 border-2 border-space-purple text-gray-300 font-game text-lg rounded-lg hover:bg-space-purple/30 hover:border-space-cyan hover:text-white transition-all duration-300 animate-pulse;
     }
 
+    @media (max-width: 528px) {
+        .start-button {
+            @apply px-7 py-2 text-base;
+        }
+    }
+
     .typing-messages-container {
         @apply text-center max-w-4xl px-4;
     }
 
     .fixed-height-container {
         @apply relative flex flex-col items-center justify-start;
+        width: var(--title-width, auto);
+        max-width: 100%;
     }
 
     .typing-text {
-        @apply text-base md:text-xl text-gray-400 font-game leading-relaxed whitespace-pre-line;
+        @apply text-lg md:text-xl text-gray-400 font-game leading-relaxed whitespace-pre-line text-left;
+    }
+
+    @media (max-width: 528px) {
+        .typing-text {
+            @apply text-base;
+        }
     }
 
     .arrow-button {
@@ -158,8 +178,22 @@
         @apply px-6 py-2 bg-space-cyan/20 border-2 border-space-cyan text-gray-300 font-game text-sm md:text-base rounded-lg hover:bg-space-cyan/30 hover:border-space-purple hover:text-white transition-all duration-300 animate-fade-in;
     }
 
+    @media (max-width: 528px) {
+        .choice-button {
+            @apply px-4 py-1.5 text-xs;
+        }
+
+        .explore-button {
+            @apply px-4 py-1.5 text-xs;
+        }
+
+        .typing-messages-container {
+            padding: 0;
+        }
+    }
+
     .spacecraft-container {
-        @apply absolute bottom-2 left-4 md:left-48 z-40 transition-all duration-1000;
+        @apply absolute bottom-16 left-4 md:left-48 z-40 transition-all duration-1000;
     }
 }
 

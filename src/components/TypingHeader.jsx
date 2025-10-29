@@ -5,9 +5,15 @@ import heartSvg from '../assets/heart.svg?raw';
 
 
 const primaryMessages = [
-    "Hi, I'm Mohammad Alshikh.\nWelcome to my digital space.",
+    `> Log ID: STARSHIP-042 |PAUSE|1000|PAUSE|
+
+    > Date: ${new Date().toLocaleDateString()},${new Date().toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' })}|PAUSE|1000|PAUSE|
+
+    > Location: Orbiting GitHub Nebula`,
+
+    "Hi, I'm Mohammad Alshikh. Welcome to my digital space.",
     "I'm a final year Computer Science student at Concordia University.",
-    "I hope you enjoy exploring my website. |PAUSE|500|PAUSE|\nWelcome aboard!",
+    "I hope you enjoy exploring my website.|PAUSE|500|PAUSE|\n\nWelcome aboard!",
 ];
 
 const secondaryMessages = [
@@ -39,6 +45,29 @@ const TypingHeader = ({ onBeginExploring }) => {
 
     const audioRef = useRef(null);
     const typingIntervalRef = useRef(null);
+    const nameHeadingRef = useRef(null);
+
+    // Set up ResizeObserver to track heading width
+    useEffect(() => {
+        if (!nameHeadingRef.current) return;
+
+        const observer = new ResizeObserver(() => {
+            if (nameHeadingRef.current) {
+                const width = nameHeadingRef.current.offsetWidth;
+                document.documentElement.style.setProperty('--title-width', `${width}px`);
+            }
+        });
+
+        observer.observe(nameHeadingRef.current);
+
+        // Initial measurement
+        const width = nameHeadingRef.current.offsetWidth;
+        document.documentElement.style.setProperty('--title-width', `${width}px`);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
     useEffect(() => {
         // Initialize audio
@@ -340,7 +369,7 @@ const TypingHeader = ({ onBeginExploring }) => {
             </div>
 
             {/* Name Heading */}
-            <h1 className="name-heading">
+            <h1 ref={nameHeadingRef} className="name-heading">
                 Mohammad Alshikh
             </h1>
 
@@ -353,7 +382,7 @@ const TypingHeader = ({ onBeginExploring }) => {
             {!userInteracted && (
                 <div className="text-center max-w-4xl px-4">
                     {/* Same fixed height as typing messages to prevent layout shift */}
-                    <div className="relative flex flex-col items-center justify-start" style={{ minHeight: '280px' }}>
+                    <div className="relative flex flex-col items-center justify-start" style={{ minHeight: '350px' }}>
                         <div className="h-[200px] flex items-center justify-center w-full -mt-12">
                             <button
                                 onClick={handleStartClick}
@@ -370,9 +399,9 @@ const TypingHeader = ({ onBeginExploring }) => {
             {userInteracted && (
                 <div className="typing-messages-container">
                     {/* Fixed height container */}
-                    <div className="fixed-height-container" style={{ minHeight: '280px' }}>
+                    <div className="fixed-height-container" style={{ minHeight: '350px' }}>
                         {/* Typing text - dynamic height */}
-                        <div className="flex items-start justify-center w-full">
+                        <div className="flex items-start justify-start w-full">
                             <p className="typing-text">
                                 <span dangerouslySetInnerHTML={{ __html: displayedText }} />
                                 {isTyping && <span className="animate-pulse">|</span>}
