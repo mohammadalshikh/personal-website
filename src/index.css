@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    html,
+    body {
+        @apply m-0 p-0 w-full;
+    }
+
+    body {
+        @apply bg-space-darker text-white font-space;
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    #root {
+        @apply w-full;
+    }
+
+    * {
+        @apply box-border;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    * {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
+
+@layer components {
+    .planet-button {
+        @apply relative cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95;
+    }
+
+    .planet-label {
+        @apply absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-100 transition-opacity duration-300;
+    }
+
+    .label-text {
+        @apply text-xs md:text-sm font-bold text-white text-glow px-3 py-1 rounded-full bg-space-dark/60 backdrop-blur-sm border border-white/20;
+    }
+
+    .modal-overlay {
+        @apply fixed inset-0 bg-black/30 backdrop-blur-sm z-40 flex items-center justify-center p-4;
+    }
+
+    .modal-content {
+        @apply relative bg-gradient-to-br from-space-dark to-space-darker border-2 border-space-purple rounded-2xl shadow-2xl w-full max-w-4xl max-h-[75vh] md:max-h-[90vh] overflow-y-auto;
+    }
+
+    .modal-header {
+        @apply sticky top-0 bg-space-darker/95 backdrop-blur-sm border-b border-space-purple/30 p-6 flex justify-between items-center z-10;
+    }
+
+    .modal-body {
+        @apply p-6 md:p-8;
+    }
+
+    .section-title {
+        @apply text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r mb-6;
+    }
+
+    .card {
+        @apply bg-space-dark/50 border border-space-purple/50 rounded-xl p-4 md:p-6 mb-4 hover:border-space-purple/50;
+    }
+
+    .btn-primary {
+        @apply px-6 py-3 bg-gradient-to-r from-space-purple to-space-pink rounded-lg font-semibold hover:shadow-lg hover:shadow-space-purple/50 transition-all duration-300 active:scale-95;
+    }
+
+    .btn-close {
+        @apply w-10 h-10 flex items-center justify-center rounded-full bg-space-purple/20 hover:bg-space-purple/40 transition-colors duration-300;
+    }
+
+    .comet-head {
+        @apply w-2 h-2 rounded-full bg-white shadow-lg shadow-white/50;
+    }
+
+    .comet-tail {
+        @apply absolute top-1/2 right-2 w-24 h-0.5 -translate-y-1/2 bg-gradient-to-r from-white to-transparent opacity-80;
+    }
+
+    .tech-tag {
+        @apply px-3 py-1 text-xs md:text-sm bg-space-purple/20 border border-space-purple/40 rounded-full text-space-cyan;
+    }
+
+    .contact-item {
+        @apply flex items-center p-4 bg-space-dark/30 rounded-lg border border-space-purple/20 hover:border-space-purple/40 transition-colors duration-200;
+    }
+
+    .project-link {
+        @apply flex items-center gap-2 px-4 py-2 text-sm bg-space-purple/20 border border-space-purple/40 rounded-lg hover:bg-space-purple/30 hover:border-space-purple transition-all duration-200;
+    }
+
+    /* TypingHeader Component Styles */
+    .typing-header {
+        @apply relative flex flex-col items-center justify-center pt-32 md:pt-40;
+    }
+
+    .mute-button {
+        @apply absolute top-4 left-4 lg:top-20 lg:left-60 z-50 p-3 bg-space-purple/20 border border-space-purple/50 rounded-lg hover:bg-space-purple/30 hover:border-space-cyan transition-all duration-300;
+    }
+
+    .social-links {
+        @apply absolute top-4 right-4 lg:top-20 lg:right-60 z-50 flex gap-3;
+    }
+
+    .social-link {
+        @apply p-3 bg-space-purple/20 border border-space-purple/50 rounded-lg hover:bg-space-purple/30 hover:border-space-cyan transition-all duration-300;
+    }
+
+    .name-heading {
+        @apply text-3xl md:text-5xl font-bold text-white mb-6 md:mb-8 animate-fade-in;
+    }
+
+    .astronaut-logo-container {
+        @apply mb-6 md:mb-8 animate-fade-in;
+    }
+
+    .start-button {
+        @apply px-8 py-3 bg-space-purple/20 border-2 border-space-purple text-gray-300 font-game text-lg rounded-lg hover:bg-space-purple/30 hover:border-space-cyan hover:text-white transition-all duration-300 animate-pulse;
+    }
+
+    .typing-messages-container {
+        @apply text-center max-w-4xl px-4;
+    }
+
+    .fixed-height-container {
+        @apply relative flex flex-col items-center justify-start;
+    }
+
+    .typing-text {
+        @apply text-base md:text-xl text-gray-400 font-game leading-relaxed whitespace-pre-line;
+    }
+
+    .arrow-button {
+        @apply text-gray-400 hover:text-space-cyan transition-colors duration-300 animate-fade-in;
+    }
+
+    .choice-button {
+        @apply px-6 py-2 bg-space-purple/20 border-2 border-space-purple text-gray-300 font-game text-sm md:text-base rounded-lg hover:bg-space-purple/30 hover:border-space-cyan hover:text-white transition-all duration-300 animate-fade-in;
+    }
+
+    .explore-button {
+        @apply px-6 py-2 bg-space-cyan/20 border-2 border-space-cyan text-gray-300 font-game text-sm md:text-base rounded-lg hover:bg-space-cyan/30 hover:border-space-purple hover:text-white transition-all duration-300 animate-fade-in;
+    }
+
+    .spacecraft-container {
+        @apply absolute bottom-2 left-4 md:left-48 z-40 transition-all duration-1000;
+    }
+}
+
+@layer utilities {
+    .text-glow {
+        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    }
+
+    .star-field {
+        @apply absolute inset-0 overflow-hidden pointer-events-none;
+    }
+
+    /* Pixelated Comet Styles */
+    .comet-horizontal {
+        @apply absolute left-0 flex items-center gap-1 animate-comet-horizontal;
+    }
+
+    .comet-pixel-head {
+        @apply flex flex-col gap-0;
+    }
+
+    .pixel-grid {
+        @apply flex flex-col gap-0;
+    }
+
+    .pixel-row {
+        @apply flex gap-0;
+    }
+
+    .pixel {
+        @apply w-2 h-2 bg-yellow-400/60;
+    }
+
+    .pixel.bright {
+        @apply bg-yellow-300/80;
+    }
+
+    .pixel.core {
+        @apply bg-yellow-200;
+    }
+
+    .comet-pixel-tail {
+        @apply flex gap-1;
+    }
+
+    .tail-block {
+        @apply w-8 h-2 bg-yellow-400/50;
+    }
+
+    .tail-block.fade {
+        @apply bg-yellow-400/20;
+    }
+}

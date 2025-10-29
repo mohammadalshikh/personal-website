@@ -5,7 +5,66 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}"
     ],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                space: {
+                    dark: '#0a0e27',
+                    darker: '#050810',
+                    purple: '#6366f1',
+                    blue: '#3b82f6',
+                    cyan: '#06b6d4',
+                    pink: '#ec4899',
+                    orange: '#f97316',
+                },
+            },
+            fontFamily: {
+                'game': ['"Press Start 2P"', 'cursive'],
+                'space': ['"Orbitron"', 'sans-serif'],
+            },
+            fontWeight: {
+                normal: '500',
+                semibold: '600',
+                bold: '700',
+            },
+            animation: {
+                'float': 'float 6s ease-in-out infinite',
+                'comet': 'comet 8s linear infinite',
+                'comet-horizontal': 'comet-horizontal 12s linear infinite',
+                'twinkle': 'twinkle 2s ease-in-out infinite',
+                'fade-in': 'fade-in 0.3s ease-out',
+                'slide-up': 'slide-up 0.4s ease-out',
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(-20px)' },
+                },
+                comet: {
+                    '0%': { transform: 'translateX(-100%) translateY(0)', opacity: '0' },
+                    '10%': { opacity: '1' },
+                    '90%': { opacity: '1' },
+                    '100%': { transform: 'translateX(200vw) translateY(100vh)', opacity: '0' },
+                },
+                'comet-horizontal': {
+                    '0%': { transform: 'translateX(-200px)', opacity: '0' },
+                    '5%': { opacity: '1' },
+                    '95%': { opacity: '1' },
+                    '100%': { transform: 'translateX(100vw)', opacity: '0' },
+                },
+                twinkle: {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.3' },
+                },
+                'fade-in': {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+                'slide-up': {
+                    '0%': { transform: 'translateY(50px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+            },
+        },
     },
     plugins: [],
 }
