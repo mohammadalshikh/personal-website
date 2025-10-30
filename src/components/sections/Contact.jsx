@@ -62,7 +62,7 @@ const Contact = () => {
                             name="email"
                             required
                             className="w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500"
-                            placeholder="your.email@example.com"
+                            placeholder="email@example.com"
                         />
                     </div>
 

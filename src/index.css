@@ -58,15 +58,61 @@
     }
 
     .modal-content {
-        @apply relative bg-gradient-to-br from-space-dark to-space-darker border-2 border-space-purple rounded-2xl shadow-2xl w-full max-w-4xl max-h-[75vh] md:max-h-[90vh] overflow-y-auto;
+        @apply relative bg-gradient-to-br from-space-dark to-space-darker border-2 border-space-purple rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col;
+        max-height: 75vh;
+    }
+    
+    @media (min-width: 768px) {
+        .modal-content {
+            max-height: 90vh;
+        }
     }
 
     .modal-header {
-        @apply sticky top-0 bg-space-darker/95 backdrop-blur-sm border-b border-space-purple/30 p-6 flex justify-between items-center z-10;
+        @apply sticky top-0 bg-space-darker/95 backdrop-blur-sm border-b border-space-purple/30 p-6 flex justify-between items-center z-10 flex-shrink-0;
     }
 
     .modal-body {
-        @apply p-6 md:p-8 text-xs md:text-sm;
+        @apply text-xs md:text-sm overflow-y-scroll flex-1;
+        padding: 1.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    @media (min-width: 768px) {
+        .modal-body {
+            padding: 2rem;
+        }
+    }
+    
+    /* Custom scrollbar for modal-body - Force visibility on all browsers */
+    .modal-body::-webkit-scrollbar {
+        width: 10px;
+        -webkit-appearance: none;
+    }
+    
+    .modal-body::-webkit-scrollbar-track {
+        background: rgba(10, 14, 39, 0.3);
+        border-radius: 10px;
+        margin: 8px 0;
+        -webkit-appearance: none;
+    }
+    
+    .modal-body::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #6366f1, #ec4899);
+        border-radius: 10px;
+        border: 2px solid rgba(10, 14, 39, 0.3);
+        -webkit-appearance: none;
+    }
+    
+    .modal-body::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #818cf8, #f472b6);
+    }
+    
+    /* Firefox scrollbar */
+    .modal-body {
+        scrollbar-width: thin;
+        scrollbar-color: #6366f1 rgba(10, 14, 39, 0.3);
+        scrollbar-gutter: stable;
     }
 
     .modal-body h3 {
