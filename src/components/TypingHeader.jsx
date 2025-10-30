@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import typingSound from '../assets/typing.mp3';
 import AstronautLogo from './AstronautLogo';
+import Asteroid from './Asteroid';
 import heartSvg from '../assets/heart.svg?raw';
 
 
@@ -372,6 +373,11 @@ const TypingHeader = ({ onBeginExploring }) => {
             <h1 ref={nameHeadingRef} className="name-heading">
                 Mohammad<span className="name-break"> </span>Alshikh
             </h1>
+
+            {/* Asteroid Decoration */}
+            <div className="absolute top-[calc(50%-110px)] right-8 sm:top-[calc(50%-110px)] sm:right-28 md:right-36 lg:right-44 z-30">
+                <Asteroid size={35} className="drop-shadow-[0_0_15px_rgba(107,114,128,0.5)] sm:w-[50px] sm:h-[50px]" />
+            </div>
 
             {/* Astronaut Logo */}
             <div className="astronaut-logo-container">

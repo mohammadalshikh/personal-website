@@ -313,6 +313,26 @@
     .spacecraft-container {
         @apply absolute bottom-16 left-4 md:left-48 z-40 transition-all duration-1000;
     }
+
+    /* Floating animation for asteroid */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-10px) rotate(2deg);
+        }
+        50% {
+            transform: translateY(-15px) rotate(0deg);
+        }
+        75% {
+            transform: translateY(-10px) rotate(-2deg);
+        }
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
 }
 
 @layer utilities {
