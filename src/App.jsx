@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import coveo from './assets/coveo.png';
+import consoltec from './assets/consoltec.png';
+import sitecore from './assets/sitecore.png';
+import concordia from './assets/concordia.png';
 import Planet from './components/Planet';
 import Modal from './components/Modal';
 import StarField from './components/StarField';
@@ -19,7 +23,7 @@ const sampleData = {
             duration: 'Jan. 2025 - Aug. 2025',
             description: "Leveraged Coveo’s Headless and Atomic frameworks to enhance search efficiency and personal recommendations.",
             technologies: ['Python', 'React', 'Angular', 'C#', 'Azure DevOps'],
-            image: '/src/assets/coveo.png'
+            image: coveo
         },
         {
             id: 2,
@@ -28,7 +32,7 @@ const sampleData = {
             duration: 'May 2024 - Aug. 2024',
             description: 'Working on key features and bug fixes to enhance product stability and user satisfaction, while also engaging in daily meetups.',
             technologies: ['C#', 'Angular', 'JavaScript', 'SQL Server'],
-            image: '/src/assets/consoltec.png'
+            image: consoltec
         },
         {
             id: 1,
@@ -37,7 +41,7 @@ const sampleData = {
             duration: 'Jan. 2024 - Apr. 2024',
             description: 'Collaborated with the deployment team to develop Sitecore-based websites, resolve maintenance issues, and structured bug analysis.',
             technologies: ['C#', 'ASP.NET', 'IIS', 'SQL Server'],
-            image: '/src/assets/sitecore.png'
+            image: sitecore
         },
     ],
     education: [
@@ -51,7 +55,7 @@ const sampleData = {
                 'Member of the Institute for Co-operative Education',
                 'VP of Google Developer Student Club',
             ],
-            image: '/src/assets/concordia.png'
+            image: concordia
         },
     ],
     projects: [
