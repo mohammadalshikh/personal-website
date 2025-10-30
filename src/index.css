@@ -157,12 +157,18 @@
     }
 
     .typing-text {
-        @apply text-lg md:text-xl text-gray-400 font-game leading-relaxed whitespace-pre-line text-left;
+        @apply text-base md:text-xl text-gray-400 font-game leading-relaxed whitespace-pre-line text-left;
+    }
+
+    @media (max-width: 767px) {
+        .typing-text {
+            @apply text-base;
+        }
     }
 
     @media (max-width: 528px) {
         .typing-text {
-            @apply text-base;
+            @apply text-sm;
         }
     }
 

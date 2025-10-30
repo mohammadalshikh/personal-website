@@ -7,13 +7,15 @@ import heartSvg from '../assets/heart.svg?raw';
 const primaryMessages = [
     `> Log ID: STARSHIP-042 |PAUSE|1000|PAUSE|
 
-    > Date: ${new Date().toLocaleDateString()},${new Date().toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' })}|PAUSE|1000|PAUSE|
+    > Date: ${new Date().toLocaleDateString()} |PAUSE|1000|PAUSE|
 
     > Location: Orbiting GitHub Nebula`,
 
-    "Hi, I'm Mohammad Alshikh. Welcome to my digital space.",
+    `Hi there, I'm Mohammad.|PAUSE|1000|PAUSE|
+    Welcome to my digital space.`,
+
     "I'm a final year Computer Science student at Concordia University.",
-    "I hope you enjoy exploring my website.|PAUSE|500|PAUSE|\n\nWelcome aboard!",
+    "I hope you enjoy exploring my website. |PAUSE|500|PAUSE|Welcome aboard.|PAUSE|500|PAUSE|\n\n> END_LOG",
 ];
 
 const secondaryMessages = [
