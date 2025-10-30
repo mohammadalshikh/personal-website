@@ -372,7 +372,7 @@ const TypingHeader = ({ onBeginExploring }) => {
 
             {/* Name Heading */}
             <h1 ref={nameHeadingRef} className="name-heading">
-                Mohammad Alshikh
+                Mohammad<span className="name-break"> </span>Alshikh
             </h1>
 
             {/* Astronaut Logo */}

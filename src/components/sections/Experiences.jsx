@@ -32,7 +32,7 @@ const Experiences = ({ experiences = [] }) => {
                                     </p>
                                 </div>
                             </div>
-                            <span className="text-sm text-gray-400 whitespace-nowrap">
+                            <span className="duration-text">
                                 {exp.duration}
                             </span>
                         </div>

@@ -26,7 +26,7 @@ const sampleData = {
             company: 'Consoltec',
             position: 'Web Developer Intern',
             duration: 'May 2024 - Aug. 2024',
-            description: 'Actively engaged in daily meetups to enhance product stability and user satisfaction by working on key features and bug fixes.',
+            description: 'Working on key features and bug fixes to enhance product stability and user satisfaction, while also engaging in daily meetups.',
             technologies: ['C#', 'Angular', 'JavaScript', 'SQL Server'],
             image: '/src/assets/consoltec.png'
         },
@@ -35,7 +35,7 @@ const sampleData = {
             company: 'Sitecore',
             position: 'Software Engineer Intern',
             duration: 'Jan. 2024 - Apr. 2024',
-            description: 'Built scalable solutions and collaborated with cross-functional teams.',
+            description: 'Collaborated with the deployment team to develop Sitecore-based websites, resolve maintenance issues, and structured bug analysis.',
             technologies: ['C#', 'ASP.NET', 'IIS', 'SQL Server'],
             image: '/src/assets/sitecore.png'
         },
@@ -81,17 +81,9 @@ const sampleData = {
         },
     ],
     about: {
-        intro: `Hello! I'm Mohammad Alshikh, a passionate developer who loves creating beautiful and functional web experiences.\n\nI specialize in building modern web applications that are both user-friendly and scalable. When I'm not coding, you can find me exploring nature with friends, trying out a new sport or starting a new TV show.`,
+        intro: `Hello! I'm Mohammad Alshikh, a passionate developer who loves creating beautiful and functional web experiences.\n\nCurrently finishing my last year at Concordia, I have learned a handful of technologies over the past few years that helped me grow and contribute as a developer. At the moment, my focus is on building modern web applications that are both user-friendly and scalable.`,
         skills: ['Python', 'C#', 'Java', 'React', 'Angular', 'Flask', 'Spring Boot', 'SQL'],
-        interests: ['UI Design', 'Cinema', 'Nature', 'Sports'],
-    },
-    contact: {
-        email: 'hello@mohammadalshikh.com',
-        phone: '+1 (555) 123-4567',
-        location: 'San Francisco, CA',
-        linkedin: 'https://linkedin.com/in/mohammadalshikh',
-        github: 'https://github.com/mohammadalshikh',
-        twitter: 'https://twitter.com/mohammadalshikh',
+        interests: ['Making cool UIs', 'Movies/TV shows', 'Writing stories', 'Exploring nature', 'Literally all sports', 'Video games', 'Hip-hop'],
     },
 };
 
@@ -176,7 +168,7 @@ function App() {
             case 'projects':
                 return <Projects projects={sampleData.projects} />;
             case 'contact':
-                return <Contact contact={sampleData.contact} />;
+                return <Contact/>;
             default:
                 return null;
         }

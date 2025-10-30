@@ -34,11 +34,8 @@ const Contact = () => {
         <div className="h-full flex items-center justify-center">
             <div className="card w-full">
                 <h3 className="text-xl md:text-2xl font-bold text-space-purple mb-6 text-center">
-                    Get In Touch
+                    Get in touch
                 </h3>
-                <p className="text-gray-300 mb-6 text-center text-sm md:text-base">
-                    Have a question or want to work together? Send me a message!
-                </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>

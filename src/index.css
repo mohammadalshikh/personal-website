@@ -12,8 +12,8 @@
     }
 
     body {
-        @apply bg-space-darker text-white font-space;
-        font-weight: 500;
+        @apply bg-space-darker text-white font-game;
+        font-weight: 400;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
@@ -50,7 +50,7 @@
     }
 
     .label-text {
-        @apply text-xs md:text-sm font-bold text-white text-glow px-3 py-1 rounded-full bg-space-dark/60 backdrop-blur-sm border border-white/20;
+        @apply text-[10px] md:text-xs font-bold text-white text-glow px-3 py-1 rounded-full bg-space-dark/60 backdrop-blur-sm border border-white/20;
     }
 
     .modal-overlay {
@@ -66,15 +66,39 @@
     }
 
     .modal-body {
-        @apply p-6 md:p-8;
+        @apply p-6 md:p-8 text-xs md:text-sm;
+    }
+
+    .modal-body h3 {
+        @apply text-base md:text-lg;
+    }
+
+    .modal-body p {
+        @apply text-xs md:text-sm;
     }
 
     .section-title {
-        @apply text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r mb-6;
+        @apply text-xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r mb-6;
     }
 
     .card {
-        @apply bg-space-dark/50 border border-space-purple/50 rounded-xl p-4 md:p-6 mb-4 hover:border-space-purple/50 flex flex-col;
+        @apply bg-space-dark/50 border border-space-purple/50 rounded-xl p-4 md:p-6 mb-4 hover:border-space-purple/50 flex flex-col text-xs md:text-sm;
+    }
+
+    .card h3 {
+        @apply text-base md:text-lg;
+    }
+
+    .duration-text {
+        @apply text-sm text-gray-400;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 440px) {
+        .duration-text {
+            font-size: 11px !important;
+            white-space: normal !important;
+        }
     }
 
     .btn-primary {
@@ -94,15 +118,15 @@
     }
 
     .tech-tag {
-        @apply px-3 py-1 text-xs md:text-sm bg-space-purple/20 border border-space-purple/40 rounded-full text-space-cyan;
+        @apply px-3 py-1 text-[10px] md:text-xs bg-space-purple/20 border border-space-purple/40 rounded-full text-space-cyan;
     }
 
     .contact-item {
-        @apply flex items-center p-4 bg-space-dark/30 rounded-lg border border-space-purple/20 hover:border-space-purple/40 transition-colors duration-200;
+        @apply flex items-center p-4 bg-space-dark/30 rounded-lg border border-space-purple/20 hover:border-space-purple/40 transition-colors duration-200 text-xs md:text-sm;
     }
 
     .project-link {
-        @apply flex items-center gap-2 px-4 py-2 text-sm bg-space-purple/20 border border-space-purple/40 rounded-lg hover:bg-space-purple/30 hover:border-space-purple transition-all duration-200;
+        @apply flex items-center gap-2 px-4 py-2 text-xs bg-space-purple/20 border border-space-purple/40 rounded-lg hover:bg-space-purple/30 hover:border-space-purple transition-all duration-200;
     }
 
     /* TypingHeader Component Styles */
@@ -123,12 +147,23 @@
     }
 
     .name-heading {
-        @apply text-4xl md:text-5xl font-bold text-white text-center mb-6 md:mb-8 animate-fade-in;
+        @apply text-3xl md:text-4xl font-bold text-white text-center mb-6 md:mb-8 animate-fade-in;
     }
 
     @media (max-width: 528px) {
         .name-heading {
-            @apply text-3xl;
+            @apply text-2xl;
+        }
+    }
+
+    .name-break {
+        display: inline;
+    }
+
+    @media (max-width: 440px) {
+        .name-break::after {
+            content: "\A";
+            white-space: pre;
         }
     }
 
@@ -154,6 +189,36 @@
         @apply relative flex flex-col items-center justify-start;
         width: var(--title-width, auto);
         max-width: 100%;
+    }
+
+    @media (max-width: 240px) and (min-width: 0px) {
+        .fixed-height-container {
+            width: 150px;
+        }
+    }
+
+    @media (max-width: 290px) and (min-width: 241px) {
+        .fixed-height-container {
+            width: 240px;
+        }
+    }
+
+    @media (max-width: 320px) and (min-width: 291px) {
+        .fixed-height-container {
+            width: 280px;
+        }
+    }
+
+    @media (max-width: 380px) and (min-width: 321px) {
+        .fixed-height-container {
+            width: 300px;
+        }
+    }
+
+    @media (max-width: 440px) and (min-width: 381px) {
+        .fixed-height-container {
+            width: 340px;
+        }
     }
 
     .typing-text {

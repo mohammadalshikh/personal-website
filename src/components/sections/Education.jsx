@@ -37,7 +37,7 @@ const Education = ({ education = [] }) => {
                                     )}
                                 </div>
                             </div>
-                            <span className="text-sm text-gray-400 whitespace-nowrap">
+                            <span className="duration-text">
                                 {edu.duration}
                             </span>
                         </div>
