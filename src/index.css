@@ -70,6 +70,7 @@
 
     .modal-header {
         @apply sticky top-0 bg-space-darker/95 backdrop-blur-sm border-b border-space-purple/30 p-6 flex justify-between items-center z-10 flex-shrink-0;
+        border-radius: 1rem 1rem 0 0;
     }
 
     .modal-body {

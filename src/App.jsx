@@ -56,12 +56,20 @@ const sampleData = {
     ],
     projects: [
         {
+            id: 4,
+            name: 'True Clear Terminal',
+            description: 'VS Code extension to clear integrated terminal and scroll-back buffer',
+            technologies: ['TypeScript', 'JavaScript'],
+            link: 'https://marketplace.visualstudio.com/items?itemName=mohammadalshikh.true-clear-terminal',
+            github: 'https://github.com/mohammadalshikh/true-clear-terminal-vscode',
+        },
+        {
             id: 3,
             name: 'MindSync',
             description: 'Task-management Discord bot with LLM integration',
             technologies: ['Discord.js', 'OpenAI API'],
-            link: 'https://bestfood.mohammadalshikh.com',
-            github: 'https://github.com/mohammadalshikh/e-commerce-spring-boot',
+            link: null,
+            github: 'https://github.com/mohammadalshikh/mindsync',
         },
         {
             id: 2,

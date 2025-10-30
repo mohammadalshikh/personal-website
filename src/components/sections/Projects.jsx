@@ -23,7 +23,7 @@ const Projects = ({ projects = [] }) => {
                         </p>
 
                         {project.technologies && project.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-4">
+                            <div className="flex flex-wrap gap-2 mb-4 mt-auto">
                                 {project.technologies.map((tech, idx) => (
                                     <span key={idx} className="tech-tag">
                                         {tech}
@@ -32,7 +32,7 @@ const Projects = ({ projects = [] }) => {
                             </div>
                         )}
 
-                        <div className="flex gap-3 mt-auto">
+                        <div className="flex gap-3">
                             {project.link && (
                                 <a
                                     href={project.link}

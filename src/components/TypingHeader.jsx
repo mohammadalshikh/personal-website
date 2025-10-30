@@ -26,8 +26,6 @@ const secondaryMessages = [
     "What's that?",
     "No. I didn't steal that from Interstellar",
     "...",
-    "You don't believe me?",
-    "Okay fine, maybe I did.",
     "If you made it this far, here's a pixel heart for you:",
 ];
 
