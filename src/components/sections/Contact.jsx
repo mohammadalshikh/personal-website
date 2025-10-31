@@ -9,7 +9,7 @@ const Contact = () => {
         const formData = new FormData(form);
 
         // Submit to 3rd party form service (replace with your actual endpoint)
-        fetch('https://formspree.io/f/your-form-id', {
+        fetch('https://formspree.io/f/mvgvwwaq', {
             method: 'POST',
             body: formData,
             headers: {

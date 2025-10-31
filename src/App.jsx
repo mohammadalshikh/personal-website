@@ -89,7 +89,7 @@ const sampleData = {
             description: 'A classroom management web-app for teachers and students.',
             technologies: ['Python', 'Flask', 'JavaScript', 'Bootstrap'],
             link: 'https://concogrades.mohammadalshikh.com',
-            github: 'https://github.com/miguelsaliba/soen287-project',
+            github: 'https://github.com/mohammadalshikh/classroom-management-flask',
         },
     ],
     about: {
