@@ -10,8 +10,9 @@ import { useEffect } from 'react';
  * @param {string} title - Modal title
  * @param {string} color - Theme color matching planet (purple, blue, cyan, pink, orange)
  * @param {ReactNode} children - Modal content
+ * @param {ReactNode} editModeActions - Optional edit mode action buttons
  */
-const Modal = ({ isOpen, onClose, title, color = 'purple', children }) => {
+const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeActions }) => {
     // Prevent body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
@@ -61,32 +62,44 @@ const Modal = ({ isOpen, onClose, title, color = 'purple', children }) => {
             >
                 {/* Header */}
                 <div className="modal-header">
-                    <h2
-                        id="modal-title"
-                        className={`section-title bg-gradient-to-r ${colorGradients[color]}`}
-                    >
-                        {title}
-                    </h2>
-
-                    <button
-                        onClick={onClose}
-                        className="btn-close"
-                        aria-label="Close modal"
-                    >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
+                    <div className="flex items-center justify-between w-full">
+                        <h2
+                            id="modal-title"
+                            className={`section-title bg-gradient-to-r ${colorGradients[color]}`}
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
+                            {title}
+                        </h2>
+
+                        <div className="flex items-center gap-3">
+                            {/* Edit Mode Actions */}
+                            {editModeActions && (
+                                <div className="mr-2">
+                                    {editModeActions}
+                                </div>
+                            )}
+
+                            {/* Close Button */}
+                            <button
+                                onClick={onClose}
+                                className="btn-close"
+                                aria-label="Close modal"
+                            >
+                                <svg
+                                    className="w-6 h-6"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Body */}

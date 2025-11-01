@@ -1,17 +1,38 @@
 /**
  * Asteroid Component - Modern, sleek asteroid decoration
  * Matches the space theme with minimalist design
+ * Now clickable for edit mode access!
+ * 
+ * Props:
+ * @param {number} size - Size in pixels
+ * @param {string} className - Additional CSS classes
+ * @param {function} onClick - Click handler
  */
-const Asteroid = ({ size = 60, className = "" }) => {
+const Asteroid = ({ size = 60, className = "", onClick }) => {
     return (
-        <svg
-            width={size}
-            height={size}
-            viewBox="0 0 64 64"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={className}
+        <button
+            onClick={onClick}
+            className={`group relative ${className}`}
+            style={{ width: `${size}px`, height: `${size}px` }}
+            aria-label="Admin access"
         >
+            {/* White circle hover effect (like planets) */}
+            <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
+                style={{
+                    width: `${size + 20}px`,
+                    height: `${size + 20}px`
+                }}
+            />
+            
+            <svg
+                width={size}
+                height={size}
+                viewBox="0 0 64 64"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="transition-transform duration-300 group-hover:scale-110"
+            >
             {/* Main asteroid body - irregular polygon for realism */}
             <path
                 d="M32 4 L44 10 L52 18 L58 28 L60 40 L54 50 L44 58 L32 60 L20 56 L10 48 L6 38 L4 26 L8 16 L18 8 Z"
@@ -86,6 +107,7 @@ const Asteroid = ({ size = 60, className = "" }) => {
             <circle cx="46" cy="36" r="1" fill="#d1d5db" opacity="0.3" />
             <circle cx="22" cy="50" r="1.2" fill="#d1d5db" opacity="0.35" />
         </svg>
+        </button>
     );
 };
 

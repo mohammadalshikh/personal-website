@@ -4,6 +4,7 @@ import consoltec from './assets/consoltec.png';
 import sitecore from './assets/sitecore.png';
 import concordia from './assets/concordia.png';
 import Planet from './components/Planet';
+import Asteroid from './components/Asteroid';
 import Modal from './components/Modal';
 import StarField from './components/StarField';
 import TypingHeader from './components/TypingHeader';
@@ -12,6 +13,13 @@ import Education from './components/sections/Education';
 import Projects from './components/sections/Projects';
 import About from './components/sections/About';
 import Contact from './components/sections/Contact';
+import EditableExperiences from './components/sections/EditableExperiences';
+import EditableEducation from './components/sections/EditableEducation';
+import EditableProjects from './components/sections/EditableProjects';
+import PasswordModal from './components/PasswordModal';
+import EditModeActions from './components/EditModeActions';
+import FormModal from './components/FormModal';
+import { EditModeProvider, useEditMode } from './contexts/EditModeContext'; // eslint-disable-line
 
 // Sample data - In the future, this will come from a backend/API
 const sampleData = {
@@ -100,8 +108,12 @@ const sampleData = {
 };
 
 
-function App() {
+// Inner App component that uses EditModeContext
+function AppContent() {
     const [activeModal, setActiveModal] = useState(null);
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+    const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+    const { isEditMode, data, updateSection } = useEditMode();
 
     useEffect(() => {
         if ('scrollRestoration' in window.history) {
@@ -169,21 +181,74 @@ function App() {
         setActiveModal(null);
     };
 
+    const handleAsteroidClick = () => {
+        setIsPasswordModalOpen(true);
+    };
+
+    const handleAddCard = () => {
+        setIsFormModalOpen(true);
+    };
+
+    const handleFormSubmit = (newCard) => {
+        switch (activeModal) {
+            case 'experiences':
+                updateSection('experiences', [...data.experiences, newCard]);
+                break;
+            case 'education':
+                updateSection('education', [...data.education, newCard]);
+                break;
+            case 'projects':
+                updateSection('projects', [...data.projects, newCard]);
+                break;
+            default:
+                break;
+        }
+    };
+
     const renderModalContent = () => {
         switch (activeModal) {
             case 'about':
-                return <About about={sampleData.about} />;
+                return <About about={data.about} />;
             case 'experiences':
-                return <Experiences experiences={sampleData.experiences} />;
+                return isEditMode ? (
+                    <EditableExperiences 
+                        experiences={data.experiences} 
+                        onChange={(newExperiences) => updateSection('experiences', newExperiences)}
+                    />
+                ) : (
+                    <Experiences experiences={data.experiences} />
+                );
             case 'education':
-                return <Education education={sampleData.education} />;
+                return isEditMode ? (
+                    <EditableEducation 
+                        education={data.education} 
+                        onChange={(newEducation) => updateSection('education', newEducation)}
+                    />
+                ) : (
+                    <Education education={data.education} />
+                );
             case 'projects':
-                return <Projects projects={sampleData.projects} />;
+                return isEditMode ? (
+                    <EditableProjects 
+                        projects={data.projects} 
+                        onChange={(newProjects) => updateSection('projects', newProjects)}
+                    />
+                ) : (
+                    <Projects projects={data.projects} />
+                );
             case 'contact':
                 return <Contact/>;
             default:
                 return null;
         }
+    };
+
+    const renderEditModeActions = () => {
+        // Only show edit actions for editable sections
+        if (!isEditMode || activeModal === 'about' || activeModal === 'contact') {
+            return null;
+        }
+        return <EditModeActions onAdd={handleAddCard} />;
     };
 
     const getModalTitle = () => {
@@ -225,6 +290,14 @@ function App() {
                                 <Planet {...dest} onClick={handlePlanetClick} />
                             </div>
                         ))}
+                        
+                        {/* Asteroid - Admin Access (Desktop) */}
+                        <div 
+                            className="absolute" 
+                            style={{ top: '10%', right: '5%' }}
+                        >
+                            <Asteroid size={70} onClick={handleAsteroidClick} />
+                        </div>
                     </div>
 
                     {/* Mobile: Absolute positioned planets */}
@@ -244,20 +317,54 @@ function App() {
                                 <Planet {...dest} size={Math.max(100, dest.size * 0.6)} onClick={handlePlanetClick} />
                             </div>
                         ))}
+                        
+                        {/* Asteroid - Admin Access (Mobile) */}
+                        <div 
+                            className="absolute" 
+                            style={{ top: '5%', right: '5%' }}
+                        >
+                            <Asteroid size={50} onClick={handleAsteroidClick} />
+                        </div>
                     </div>
                 </section>
             </div>
 
-            {/* Modal */}
+            {/* Content Modal */}
             <Modal
                 isOpen={activeModal !== null}
                 onClose={handleCloseModal}
                 title={getModalTitle()}
                 color={getModalColor()}
+                editModeActions={renderEditModeActions()}
             >
                 {renderModalContent()}
             </Modal>
+
+            {/* Password Modal */}
+            <PasswordModal 
+                isOpen={isPasswordModalOpen}
+                onClose={() => setIsPasswordModalOpen(false)}
+                isExitMode={isEditMode}
+            />
+
+            {/* Form Modal for Adding Cards */}
+            <FormModal
+                isOpen={isFormModalOpen}
+                onClose={() => setIsFormModalOpen(false)}
+                onSubmit={handleFormSubmit}
+                sectionType={activeModal}
+                color={getModalColor()}
+            />
         </div>
+    );
+}
+
+// Main App component wrapped with EditModeProvider
+function App() {
+    return (
+        <EditModeProvider initialData={sampleData}>
+            <AppContent />
+        </EditModeProvider>
     );
 }
 
