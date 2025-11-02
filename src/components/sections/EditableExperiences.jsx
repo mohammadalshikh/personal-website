@@ -40,9 +40,17 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
         onChange(newExperiences);
     };
 
-    const handleArrayFieldChange = (index, field, value) => {
-        const array = value.split(',').map((item) => item.trim()).filter((item) => item);
-        handleFieldChange(index, field, array);
+    const handleTechnologiesChange = (index, value) => {
+        // Just store the raw string value
+        handleFieldChange(index, 'technologies', value);
+    };
+
+    const handleTechnologiesBlur = (index, value) => {
+        // Convert string to array on blur
+        if (typeof value === 'string') {
+            const array = value.split(',').map((item) => item.trim()).filter((item) => item);
+            handleFieldChange(index, 'technologies', array);
+        }
     };
 
     if (experiences.length === 0) {
@@ -74,14 +82,14 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                                         type="text"
                                         value={exp.position}
                                         onChange={(e) => handleFieldChange(index, 'position', e.target.value)}
-                                        className="edit-input text-xl md:text-2xl font-bold text-space-cyan bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full"
+                                        className="edit-input text-base md:text-lg font-bold text-space-cyan bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full"
                                         placeholder="Position"
                                     />
                                     <input
                                         type="text"
                                         value={exp.company}
                                         onChange={(e) => handleFieldChange(index, 'company', e.target.value)}
-                                        className="edit-input text-lg text-space-purple font-semibold bg-transparent border-b border-space-purple/30 focus:border-space-purple w-full mt-1"
+                                        className="edit-input text-base text-space-purple font-semibold bg-transparent border-b border-space-purple/30 focus:border-space-purple w-full mt-1"
                                         placeholder="Company"
                                     />
                                 </div>
@@ -98,23 +106,24 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                         <textarea
                             value={exp.description}
                             onChange={(e) => handleFieldChange(index, 'description', e.target.value)}
-                            className="edit-input text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
+                            className="edit-input text-xs md:text-sm text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
                             rows="3"
                             placeholder="Description"
                         />
 
                         <div className="mb-2">
-                            <label className="text-xs text-gray-500 mb-1 block">Technologies (comma-separated)</label>
+                            <label className="text-xs text-gray-500 mb-1 block">Technologies</label>
                             <input
                                 type="text"
-                                value={(exp.technologies || []).join(', ')}
-                                onChange={(e) => handleArrayFieldChange(index, 'technologies', e.target.value)}
-                                className="edit-input text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
-                                placeholder="Python, React, Angular"
+                                value={Array.isArray(exp.technologies) ? exp.technologies.join(',') : exp.technologies || ''}
+                                onChange={(e) => handleTechnologiesChange(index, e.target.value)}
+                                onBlur={(e) => handleTechnologiesBlur(index, e.target.value)}
+                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
+                                placeholder="Python,React"
                             />
                         </div>
 
-                        {exp.technologies && exp.technologies.length > 0 && (
+                        {Array.isArray(exp.technologies) && exp.technologies.length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-3">
                                 {exp.technologies.map((tech, idx) => (
                                     <span key={idx} className="tech-tag">

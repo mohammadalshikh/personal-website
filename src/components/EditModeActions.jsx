@@ -14,12 +14,12 @@ const EditModeActions = ({ onAdd }) => {
     };
 
     return (
-        <div className="flex items-center gap-2">
+        <>
             {/* Undo Button */}
             <button
                 onClick={undoChanges}
                 disabled={!isDirty || isLoading}
-                className={`p-2 rounded-lg transition-all ${
+                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
                     isDirty && !isLoading
                         ? 'bg-space-darker hover:bg-gray-700 text-gray-300 border border-gray-600'
                         : 'bg-gray-800 text-gray-600 border border-gray-800 cursor-not-allowed'
@@ -36,7 +36,7 @@ const EditModeActions = ({ onAdd }) => {
             <button
                 onClick={handleSave}
                 disabled={!isDirty || isLoading}
-                className={`p-2 rounded-lg transition-all ${
+                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
                     isDirty && !isLoading
                         ? 'bg-green-600 hover:bg-green-700 text-white'
                         : 'bg-gray-800 text-gray-600 cursor-not-allowed'
@@ -60,7 +60,7 @@ const EditModeActions = ({ onAdd }) => {
             <button
                 onClick={onAdd}
                 disabled={isLoading}
-                className="p-2 bg-space-purple hover:bg-purple-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-space-purple/20 hover:bg-space-purple/40 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 title="Add new card"
                 aria-label="Add new card"
             >
@@ -68,7 +68,7 @@ const EditModeActions = ({ onAdd }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
             </button>
-        </div>
+        </>
     );
 };
 

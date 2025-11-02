@@ -62,43 +62,39 @@ const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeAct
             >
                 {/* Header */}
                 <div className="modal-header">
-                    <div className="flex items-center justify-between w-full">
-                        <h2
-                            id="modal-title"
-                            className={`section-title bg-gradient-to-r ${colorGradients[color]}`}
+                    {/* Title */}
+                    <h2
+                        id="modal-title"
+                        className={`section-title bg-gradient-to-r ${colorGradients[color]}`}
+                    >
+                        {title}
+                    </h2>
+                    
+                    {/* Action Buttons - Close & Edit Mode Actions */}
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                        {/* Edit Mode Actions */}
+                        {editModeActions}
+                        
+                        {/* Close Button */}
+                        <button
+                            onClick={onClose}
+                            className="btn-close"
+                            aria-label="Close modal"
                         >
-                            {title}
-                        </h2>
-
-                        <div className="flex items-center gap-3">
-                            {/* Edit Mode Actions */}
-                            {editModeActions && (
-                                <div className="mr-2">
-                                    {editModeActions}
-                                </div>
-                            )}
-
-                            {/* Close Button */}
-                            <button
-                                onClick={onClose}
-                                className="btn-close"
-                                aria-label="Close modal"
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
                             >
-                                <svg
-                                    className="w-6 h-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
                     </div>
                 </div>
 

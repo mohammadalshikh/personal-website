@@ -31,7 +31,7 @@ const secondaryMessages = [
 ];
 
 
-const TypingHeader = ({ onBeginExploring }) => {
+const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
 
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
@@ -374,9 +374,9 @@ const TypingHeader = ({ onBeginExploring }) => {
                 Mohammad<span className="name-break"> </span>Alshikh
             </h1>
 
-            {/* Asteroid Decoration */}
+            {/* Asteroid - Admin Access */}
             <div className="absolute top-[calc(50%-110px)] right-8 sm:top-[calc(50%-110px)] sm:right-28 md:right-36 lg:right-44 z-30">
-                <Asteroid size={35} className="drop-shadow-[0_0_15px_rgba(107,114,128,0.5)] sm:w-[50px] sm:h-[50px]" />
+                <Asteroid size={35} className="drop-shadow-[0_0_15px_rgba(107,114,128,0.5)] sm:w-[50px] sm:h-[50px]" onClick={onAsteroidClick} />
             </div>
 
             {/* Astronaut Logo */}

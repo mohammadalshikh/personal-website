@@ -152,14 +152,13 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Duration * (e.g., Jan. 2024 - Apr. 2024)
+                                Duration * (Jan. 2025 - Apr. 2025)
                             </label>
                             <input
                                 type="text"
                                 value={formData.duration || ''}
                                 onChange={(e) => handleChange('duration', e.target.value)}
                                 className="form-input"
-                                placeholder="Jan. 2024 - Apr. 2024"
                                 required
                             />
                         </div>
@@ -177,14 +176,14 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Technologies (comma-separated)
+                                Technologies
                             </label>
                             <input
                                 type="text"
                                 value={(formData.technologies || []).join(', ')}
                                 onChange={(e) => handleArrayChange('technologies', e.target.value)}
                                 className="form-input"
-                                placeholder="Python, React, Node.js"
+                                placeholder="Python,React"
                             />
                         </div>
                         {renderImageUpload()}
@@ -231,20 +230,19 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Duration * (e.g., Jan. 2021 - Apr. 2026)
+                                Duration * (Jan. 2025 - Apr. 2025)
                             </label>
                             <input
                                 type="text"
                                 value={formData.duration || ''}
                                 onChange={(e) => handleChange('duration', e.target.value)}
                                 className="form-input"
-                                placeholder="Jan. 2021 - Apr. 2026"
                                 required
                             />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Achievements (comma-separated)
+                                Achievements
                             </label>
                             <textarea
                                 value={(formData.achievements || []).join(', ')}
@@ -287,14 +285,14 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1">
-                                Technologies (comma-separated) *
+                                Technologies *
                             </label>
                             <input
                                 type="text"
                                 value={(formData.technologies || []).join(', ')}
                                 onChange={(e) => handleArrayChange('technologies', e.target.value)}
                                 className="form-input"
-                                placeholder="Python, React, Node.js"
+                                placeholder="Python,React"
                                 required
                             />
                         </div>

@@ -73,21 +73,21 @@ const EditableEducation = ({ education = [], onChange }) => {
                                         type="text"
                                         value={edu.degree}
                                         onChange={(e) => handleFieldChange(index, 'degree', e.target.value)}
-                                        className="edit-input text-xl md:text-2xl font-bold text-space-blue bg-transparent border-b border-space-blue/30 focus:border-space-blue w-full"
+                                        className="edit-input text-base md:text-lg font-bold text-space-blue bg-transparent border-b border-space-blue/30 focus:border-space-blue w-full"
                                         placeholder="Degree"
                                     />
                                     <input
                                         type="text"
                                         value={edu.institution}
                                         onChange={(e) => handleFieldChange(index, 'institution', e.target.value)}
-                                        className="edit-input text-lg text-space-cyan font-semibold bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full mt-1"
+                                        className="edit-input text-base text-space-cyan font-semibold bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full mt-1"
                                         placeholder="Institution"
                                     />
                                     <input
                                         type="text"
                                         value={edu.field || ''}
                                         onChange={(e) => handleFieldChange(index, 'field', e.target.value)}
-                                        className="edit-input text-gray-400 text-sm bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mt-1"
+                                        className="edit-input text-gray-400 text-xs md:text-sm bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mt-1"
                                         placeholder="Field of Study (optional)"
                                     />
                                 </div>
@@ -102,11 +102,11 @@ const EditableEducation = ({ education = [], onChange }) => {
                         </div>
 
                         <div className="mb-2">
-                            <label className="text-xs text-gray-500 mb-1 block">Achievements (comma-separated)</label>
+                            <label className="text-xs text-gray-500 mb-1 block">Achievements</label>
                             <textarea
                                 value={(edu.achievements || []).join(', ')}
                                 onChange={(e) => handleArrayFieldChange(index, 'achievements', e.target.value)}
-                                className="edit-input text-sm text-gray-400 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
+                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
                                 rows="2"
                                 placeholder="Achievement 1, Achievement 2"
                             />
@@ -115,7 +115,7 @@ const EditableEducation = ({ education = [], onChange }) => {
                         {edu.achievements && edu.achievements.length > 0 && (
                             <ul className="space-y-2 mt-4">
                                 {edu.achievements.map((achievement, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-gray-300">
+                                    <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-gray-300">
                                         <span className="text-space-blue">▸</span>
                                         <span>{achievement}</span>
                                     </li>

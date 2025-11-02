@@ -39,9 +39,17 @@ const EditableProjects = ({ projects = [], onChange }) => {
         onChange(newProjects);
     };
 
-    const handleArrayFieldChange = (index, field, value) => {
-        const array = value.split(',').map((item) => item.trim()).filter((item) => item);
-        handleFieldChange(index, field, array);
+    const handleTechnologiesChange = (index, value) => {
+        // Just store the raw string value
+        handleFieldChange(index, 'technologies', value);
+    };
+
+    const handleTechnologiesBlur = (index, value) => {
+        // Convert string to array on blur
+        if (typeof value === 'string') {
+            const array = value.split(',').map((item) => item.trim()).filter((item) => item);
+            handleFieldChange(index, 'technologies', array);
+        }
     };
 
     if (projects.length === 0) {
@@ -63,30 +71,31 @@ const EditableProjects = ({ projects = [], onChange }) => {
                             type="text"
                             value={project.name}
                             onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
-                            className="edit-input text-xl md:text-2xl font-bold text-space-pink mb-3 bg-transparent border-b border-space-pink/30 focus:border-space-pink w-full"
+                            className="edit-input text-base md:text-lg font-bold text-space-pink mb-3 bg-transparent border-b border-space-pink/30 focus:border-space-pink w-full"
                             placeholder="Project Name"
                         />
 
                         <textarea
                             value={project.description}
                             onChange={(e) => handleFieldChange(index, 'description', e.target.value)}
-                            className="edit-input text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
+                            className="edit-input text-xs md:text-sm text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
                             rows="3"
                             placeholder="Description"
                         />
 
                         <div className="mb-2">
-                            <label className="text-xs text-gray-500 mb-1 block">Technologies (comma-separated)</label>
+                            <label className="text-xs text-gray-500 mb-1 block">Technologies</label>
                             <input
                                 type="text"
-                                value={(project.technologies || []).join(', ')}
-                                onChange={(e) => handleArrayFieldChange(index, 'technologies', e.target.value)}
+                                value={Array.isArray(project.technologies) ? project.technologies.join(',') : project.technologies || ''}
+                                onChange={(e) => handleTechnologiesChange(index, e.target.value)}
+                                onBlur={(e) => handleTechnologiesBlur(index, e.target.value)}
                                 className="edit-input text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mb-2"
-                                placeholder="Python, React, Node.js"
+                                placeholder="Python,React"
                             />
                         </div>
 
-                        {project.technologies && project.technologies.length > 0 && (
+                        {Array.isArray(project.technologies) && project.technologies.length > 0 && (
                             <div className="flex flex-wrap gap-2 mb-4">
                                 {project.technologies.map((tech, idx) => (
                                     <span key={idx} className="tech-tag">
@@ -101,14 +110,14 @@ const EditableProjects = ({ projects = [], onChange }) => {
                                 type="url"
                                 value={project.link || ''}
                                 onChange={(e) => handleFieldChange(index, 'link', e.target.value)}
-                                className="edit-input text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
+                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
                                 placeholder="Live Demo URL"
                             />
                             <input
                                 type="url"
                                 value={project.github || ''}
                                 onChange={(e) => handleFieldChange(index, 'github', e.target.value)}
-                                className="edit-input text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
+                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
                                 placeholder="GitHub URL"
                             />
                         </div>

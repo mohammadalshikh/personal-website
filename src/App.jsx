@@ -4,7 +4,6 @@ import consoltec from './assets/consoltec.png';
 import sitecore from './assets/sitecore.png';
 import concordia from './assets/concordia.png';
 import Planet from './components/Planet';
-import Asteroid from './components/Asteroid';
 import Modal from './components/Modal';
 import StarField from './components/StarField';
 import TypingHeader from './components/TypingHeader';
@@ -19,7 +18,7 @@ import EditableProjects from './components/sections/EditableProjects';
 import PasswordModal from './components/PasswordModal';
 import EditModeActions from './components/EditModeActions';
 import FormModal from './components/FormModal';
-import { EditModeProvider, useEditMode } from './contexts/EditModeContext'; // eslint-disable-line
+import { EditModeProvider, useEditMode } from './contexts/EditModeContext';
 
 // Sample data - In the future, this will come from a backend/API
 const sampleData = {
@@ -266,12 +265,10 @@ function AppContent() {
             {/* Stars Background */}
             <StarField starCount={300} />
 
-            {/* Main Content */}
+                {/* Main Content */}
             <div className="relative z-10">
                 {/* Header with Typing Effect */}
-                <TypingHeader />
-
-                {/* Planets Container - Separate section */}
+                <TypingHeader onAsteroidClick={handleAsteroidClick} />                {/* Planets Container - Separate section */}
                 <section id="planets-section" className="relative min-h-screen">
                     {/* Desktop: Absolute positioned planets */}
                     <div className="hidden md:block relative h-screen max-w-7xl mx-auto">
@@ -290,14 +287,6 @@ function AppContent() {
                                 <Planet {...dest} onClick={handlePlanetClick} />
                             </div>
                         ))}
-                        
-                        {/* Asteroid - Admin Access (Desktop) */}
-                        <div 
-                            className="absolute" 
-                            style={{ top: '10%', right: '5%' }}
-                        >
-                            <Asteroid size={70} onClick={handleAsteroidClick} />
-                        </div>
                     </div>
 
                     {/* Mobile: Absolute positioned planets */}
@@ -317,14 +306,6 @@ function AppContent() {
                                 <Planet {...dest} size={Math.max(100, dest.size * 0.6)} onClick={handlePlanetClick} />
                             </div>
                         ))}
-                        
-                        {/* Asteroid - Admin Access (Mobile) */}
-                        <div 
-                            className="absolute" 
-                            style={{ top: '5%', right: '5%' }}
-                        >
-                            <Asteroid size={50} onClick={handleAsteroidClick} />
-                        </div>
                     </div>
                 </section>
             </div>
