@@ -24,8 +24,7 @@ const Contact = () => {
                 alert('Failed to send message. Please try again.');
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
+        .catch(() => {
             alert('Failed to send message. Please try again.');
         });
     };

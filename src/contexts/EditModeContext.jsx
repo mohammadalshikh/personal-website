@@ -43,8 +43,8 @@ export const EditModeProvider = ({ children, initialData }) => {
                 const fetchedData = await fetchData();
                 setData(fetchedData);
                 setOriginalData(fetchedData);
-            } catch (error) {
-                console.error('Failed to load data:', error);
+            } catch {
+                // Failed to load data, will use initialData
             } finally {
                 setIsLoading(false);
             }
@@ -116,8 +116,7 @@ export const EditModeProvider = ({ children, initialData }) => {
             setIsDirty(false);
             alert('Changes saved successfully!');
             return true;
-        } catch (error) {
-            console.error('Failed to save changes:', error);
+        } catch {
             alert('Failed to save changes. Please try again.');
             return false;
         } finally {
