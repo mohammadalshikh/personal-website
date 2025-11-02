@@ -24,6 +24,8 @@ export const EditModeProvider = ({ children, initialData }) => {
     const [isDirty, setIsDirty] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [configValid, setConfigValid] = useState(false);
+    const [binConnected, setBinConnected] = useState(false);
+    const [logsCount, setLogsCount] = useState(0);
 
     // Validate configuration on mount
     useEffect(() => {
@@ -34,24 +36,38 @@ export const EditModeProvider = ({ children, initialData }) => {
     // Load data from backend on mount
     useEffect(() => {
         const loadData = async () => {
-            if (!configValid) {
-                return;
-            }
-
             setIsLoading(true);
             try {
-                const fetchedData = await fetchData();
-                setData(fetchedData);
-                setOriginalData(fetchedData);
+                const { data: fetchedData, success } = await fetchData();
+                
+                if (success) {
+                    // Successfully fetched from bin - use bin data
+                    setData(fetchedData);
+                    setOriginalData(fetchedData);
+                    setLogsCount(fetchedData.logs || 0);
+                    setBinConnected(true);
+                    console.log('✅ Connected to JSONBin - Using live data');
+                } else {
+                    // Fetch failed - use fallback initialData (sample data)
+                    setData(initialData);
+                    setOriginalData(initialData);
+                    setLogsCount(0);
+                    setBinConnected(false);
+                    console.warn('⚠️ JSONBin connection failed - Using sample fallback data');
+                }
             } catch {
                 // Failed to load data, will use initialData
+                setData(initialData);
+                setOriginalData(initialData);
+                setLogsCount(0);
+                setBinConnected(false);
             } finally {
                 setIsLoading(false);
             }
         };
 
         loadData();
-    }, [configValid]);
+    }, [initialData]);
 
     // Check if data has changed
     useEffect(() => {
@@ -160,6 +176,8 @@ export const EditModeProvider = ({ children, initialData }) => {
         isDirty,
         isLoading,
         configValid,
+        binConnected,
+        logsCount,
         enterEditMode,
         exitEditMode,
         updateData,

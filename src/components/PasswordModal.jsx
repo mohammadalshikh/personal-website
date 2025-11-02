@@ -12,7 +12,7 @@ import { useEditMode } from '../contexts/EditModeContext';
 const PasswordModal = ({ isOpen, onClose, isExitMode = false }) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { enterEditMode, exitEditMode } = useEditMode();
+    const { enterEditMode, exitEditMode, binConnected, logsCount } = useEditMode();
 
     // Reset state when modal opens
     useEffect(() => {
@@ -86,6 +86,22 @@ const PasswordModal = ({ isOpen, onClose, isExitMode = false }) => {
                 <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 bg-gradient-to-r from-space-purple to-purple-400 bg-clip-text text-transparent">
                     {isExitMode ? 'Exit Edit Mode' : 'Enter Edit Mode'}
                 </h2>
+
+                {/* Status/Counter Display */}
+                {isExitMode && (
+                    <div className="text-center mb-4">
+                        <p className="text-sm text-gray-400">
+                            Log entries created: <span className="text-space-purple font-semibold">{logsCount}</span>
+                        </p>
+                    </div>
+                )}
+                {!isExitMode && (
+                    <div className="text-center mb-4">
+                        <p className={`text-sm font-semibold ${binConnected ? 'text-green-500' : 'text-red-500'}`}>
+                            {binConnected ? '● Bin enabled' : '● Bin disabled'}
+                        </p>
+                    </div>
+                )}
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">

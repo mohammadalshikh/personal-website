@@ -101,7 +101,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
             setUploadedImageUrl(url);
             setFormData((prev) => ({ ...prev, image: url }));
             alert('Image uploaded successfully!');
-        } catch (error) {
+        } catch {
             alert('Failed to upload image. Please try again.');
         } finally {
             setIsUploading(false);

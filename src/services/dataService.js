@@ -15,6 +15,7 @@ const IMGBB_BASE_URL = 'https://api.imgbb.com/1/upload';
 
 /**
  * Fetch all data from JSONBin
+ * Returns { data, success } where success indicates if fetch was successful
  */
 export const fetchData = async () => {
     try {
@@ -23,10 +24,10 @@ export const fetchData = async () => {
                 'X-Access-Key': JSONBIN_API_KEY,
             },
         });
-        return response.data.record;
+        return { data: response.data.record, success: true };
     } catch {
         // Return default data structure if fetch fails
-        return getDefaultData();
+        return { data: getDefaultData(), success: false };
     }
 };
 
@@ -45,6 +46,42 @@ export const saveData = async (data) => {
         }
     );
     return response.data;
+};
+
+/**
+ * Increment logs counter in JSONBin
+ */
+export const incrementLogCounter = async () => {
+    try {
+        // Fetch current data
+        const response = await axios.get(`${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}/latest`, {
+            headers: {
+                'X-Access-Key': JSONBIN_API_KEY,
+            },
+        });
+        
+        const data = response.data.record;
+        const currentLogs = data.logs || 0;
+        
+        // Increment and save
+        data.logs = currentLogs + 1;
+        
+        await axios.put(
+            `${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}`,
+            data,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Access-Key': JSONBIN_API_KEY,
+                },
+            }
+        );
+        
+        return data.logs;
+    } catch (error) {
+        console.error('Failed to increment log counter:', error);
+        return null;
+    }
 };
 
 /**

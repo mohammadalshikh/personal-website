@@ -3,6 +3,7 @@ import typingSound from '../assets/typing.mp3';
 import AstronautLogo from './AstronautLogo';
 import Asteroid from './Asteroid';
 import heartSvg from '../assets/heart.svg?raw';
+import { incrementLogCounter } from '../services/dataService';
 
 
 const primaryMessages = [
@@ -111,6 +112,11 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
     }, [audioReady, isTyping, displayedText, userInteracted]);
 
     const handleStartClick = () => {
+        // Increment log counter in background (don't wait)
+        incrementLogCounter().catch(err => {
+            console.error('Failed to increment log counter:', err);
+        });
+
         // For mobile Safari, force audio ready and unlock it
         if (audioRef.current) {
             audioRef.current.load(); // Force load
