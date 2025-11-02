@@ -46,14 +46,12 @@ export const EditModeProvider = ({ children, initialData }) => {
                     setOriginalData(fetchedData);
                     setLogsCount(fetchedData.logs || 0);
                     setBinConnected(true);
-                    console.log('✅ Connected to JSONBin - Using live data');
                 } else {
                     // Fetch failed - use fallback initialData (sample data)
                     setData(initialData);
                     setOriginalData(initialData);
                     setLogsCount(0);
                     setBinConnected(false);
-                    console.warn('⚠️ JSONBin connection failed - Using sample fallback data');
                 }
             } catch {
                 // Failed to load data, will use initialData
