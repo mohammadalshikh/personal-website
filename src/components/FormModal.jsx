@@ -46,7 +46,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                     position: '',
                     duration: '',
                     description: '',
-                    technologies: [],
+                    technologies: '',
                 };
             case 'education':
                 return {
@@ -54,13 +54,13 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                     degree: '',
                     field: '',
                     duration: '',
-                    achievements: [],
+                    achievements: '',
                 };
             case 'projects':
                 return {
                     name: '',
                     description: '',
-                    technologies: [],
+                    technologies: '',
                     link: '',
                     github: '',
                 };
@@ -74,9 +74,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
     };
 
     const handleArrayChange = (field, value) => {
-        // Split by comma and trim
-        const array = value.split(',').map((item) => item.trim()).filter((item) => item);
-        setFormData((prev) => ({ ...prev, [field]: array }));
+        setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
     const handleImageUpload = async (e) => {
@@ -111,9 +109,18 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Add unique ID
+        const parsed = { ...formData };
+        ['technologies', 'achievements'].forEach((key) => {
+            if (key in parsed && typeof parsed[key] === 'string') {
+                parsed[key] = parsed[key]
+                    .split(',')
+                    .map((item) => item.trim())
+                    .filter((item) => item);
+            }
+        });
+
         const newCard = {
-            ...formData,
+            ...parsed,
             id: Date.now(),
         };
 
@@ -180,7 +187,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                             </label>
                             <input
                                 type="text"
-                                value={(formData.technologies || []).join(', ')}
+                                value={formData.technologies || ''}
                                 onChange={(e) => handleArrayChange('technologies', e.target.value)}
                                 className="form-input"
                                 placeholder="Python,React"
@@ -245,11 +252,11 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                                 Achievements
                             </label>
                             <textarea
-                                value={(formData.achievements || []).join(', ')}
+                                value={formData.achievements || ''}
                                 onChange={(e) => handleArrayChange('achievements', e.target.value)}
                                 className="form-input"
                                 rows="3"
-                                placeholder="Achievement 1, Achievement 2"
+                                placeholder="Achievement1,Achievement2"
                             />
                         </div>
                         {renderImageUpload()}
@@ -289,7 +296,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                             </label>
                             <input
                                 type="text"
-                                value={(formData.technologies || []).join(', ')}
+                                value={formData.technologies || ''}
                                 onChange={(e) => handleArrayChange('technologies', e.target.value)}
                                 className="form-input"
                                 placeholder="Python,React"

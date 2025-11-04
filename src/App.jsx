@@ -11,6 +11,7 @@ import Experiences from './components/sections/Experiences';
 import Education from './components/sections/Education';
 import Projects from './components/sections/Projects';
 import About from './components/sections/About';
+import EditableAbout from './components/sections/EditableAbout';
 import Contact from './components/sections/Contact';
 import EditableExperiences from './components/sections/EditableExperiences';
 import EditableEducation from './components/sections/EditableEducation';
@@ -191,13 +192,13 @@ function AppContent() {
     const handleFormSubmit = (newCard) => {
         switch (activeModal) {
             case 'experiences':
-                updateSection('experiences', [...data.experiences, newCard]);
+                updateSection('experiences', [newCard, ...data.experiences]);
                 break;
             case 'education':
-                updateSection('education', [...data.education, newCard]);
+                updateSection('education', [newCard, ...data.education]);
                 break;
             case 'projects':
-                updateSection('projects', [...data.projects, newCard]);
+                updateSection('projects', [newCard, ...data.projects]);
                 break;
             default:
                 break;
@@ -207,7 +208,11 @@ function AppContent() {
     const renderModalContent = () => {
         switch (activeModal) {
             case 'about':
-                return <About about={data.about} />;
+                return isEditMode ? (
+                    <EditableAbout about={data.about} onChange={(newAbout) => updateSection('about', newAbout)} />
+                ) : (
+                    <About about={data.about} />
+                );
             case 'experiences':
                 return isEditMode ? (
                     <EditableExperiences 
@@ -243,10 +248,15 @@ function AppContent() {
     };
 
     const renderEditModeActions = () => {
-        // Only show edit actions for editable sections
-        if (!isEditMode || activeModal === 'about' || activeModal === 'contact') {
+        if (!isEditMode || activeModal === 'contact') {
             return null;
         }
+
+        // For About we don't want the Add button, but still want Save/Undo
+        if (activeModal === 'about') {
+            return <EditModeActions onAdd={handleAddCard} showAdd={false} />;
+        }
+
         return <EditModeActions onAdd={handleAddCard} />;
     };
 

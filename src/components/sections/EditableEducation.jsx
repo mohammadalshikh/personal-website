@@ -104,11 +104,11 @@ const EditableEducation = ({ education = [], onChange }) => {
                         <div className="mb-2">
                             <label className="text-xs text-gray-500 mb-1 block">Achievements</label>
                             <textarea
-                                value={(edu.achievements || []).join(', ')}
+                                value={(edu.achievements || []).join(',')}
                                 onChange={(e) => handleArrayFieldChange(index, 'achievements', e.target.value)}
                                 className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
                                 rows="2"
-                                placeholder="Achievement 1, Achievement 2"
+                                placeholder="Achievement 1,Achievement 2"
                             />
                         </div>
 
