@@ -1,10 +1,7 @@
 /**
  * Projects Component - Displays projects portfolio
- * Designed to accept data props and be backend-ready
  * 
- * Props:
  * @param {Array} projects - Array of project objects
- *   Each object: { id, name, description, technologies, link, github }
  */
 const Projects = ({ projects = [] }) => {
     return (

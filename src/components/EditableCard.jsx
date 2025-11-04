@@ -3,7 +3,6 @@ import { useState } from 'react';
 /**
  * EditableCard - Wrapper component for editable cards with drag-and-drop
  * 
- * Props:
  * @param {ReactNode} children - Card content
  * @param {function} onDelete - Delete handler
  * @param {function} onDragStart - Drag start handler
@@ -12,14 +11,14 @@ import { useState } from 'react';
  * @param {boolean} isDraggable - Whether card is draggable
  * @param {number} index - Card index
  */
-const EditableCard = ({ 
-    children, 
-    onDelete, 
-    onDragStart, 
-    onDragOver, 
+const EditableCard = ({
+    children,
+    onDelete,
+    onDragStart,
+    onDragOver,
     onDrop,
     isDraggable = true,
-    index 
+    index
 }) => {
     const [isDragging, setIsDragging] = useState(false);
 

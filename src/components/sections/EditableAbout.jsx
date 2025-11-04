@@ -1,9 +1,8 @@
-// Editable about - no hooks required
 /**
  * EditableAbout - Edit mode version of About component
- * Props:
- *  - about: { intro, skills, interests, avatar }
- *  - onChange: function(newAbout)
+ *
+ * @param {Object} about - { intro, skills, interests }
+ * @param {Function} onChange - function(newAbout)
  */
 const EditableAbout = ({ about = {}, onChange }) => {
     const { intro = '', skills = [], interests = [] } = about;

@@ -1,10 +1,7 @@
 /**
  * About Component - Displays personal information
- * Designed to accept data props and be backend-ready
- * 
- * Props:
- * @param {Object} about - About object
- *   { intro, skills, interests, avatar }
+ *
+ * @param {Object} about - { intro, skills, interests }
  */
 const About = ({ about = {} }) => {
     const { intro = '', skills = [], interests = [] } = about;

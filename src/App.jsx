@@ -21,7 +21,7 @@ import EditModeActions from './components/EditModeActions';
 import FormModal from './components/FormModal';
 import { EditModeProvider, useEditMode } from './contexts/EditModeContext';
 
-// Sample data - In the future, this will come from a backend/API
+// Fallback data
 const sampleData = {
     experiences: [
         {
@@ -107,8 +107,10 @@ const sampleData = {
     },
 };
 
-
-// Inner App component that uses EditModeContext
+/**
+ * 
+ * @returns 
+ */
 function AppContent() {
     const [activeModal, setActiveModal] = useState(null);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -209,39 +211,49 @@ function AppContent() {
         switch (activeModal) {
             case 'about':
                 return isEditMode ? (
-                    <EditableAbout about={data.about} onChange={(newAbout) => updateSection('about', newAbout)} />
+                    <EditableAbout
+                        about={data.about}
+                        onChange={(newAbout) =>
+                            updateSection('about', newAbout)
+                        } />
                 ) : (
                     <About about={data.about} />
                 );
             case 'experiences':
                 return isEditMode ? (
-                    <EditableExperiences 
-                        experiences={data.experiences} 
-                        onChange={(newExperiences) => updateSection('experiences', newExperiences)}
+                    <EditableExperiences
+                        experiences={data.experiences}
+                        onChange={(newExperiences) =>
+                            updateSection('experiences', newExperiences)
+                        }
                     />
                 ) : (
                     <Experiences experiences={data.experiences} />
                 );
             case 'education':
                 return isEditMode ? (
-                    <EditableEducation 
-                        education={data.education} 
-                        onChange={(newEducation) => updateSection('education', newEducation)}
+                    <EditableEducation
+                        education={data.education}
+                        onChange={(newEducation) =>
+                            updateSection('education', newEducation)
+                        }
                     />
                 ) : (
                     <Education education={data.education} />
                 );
             case 'projects':
                 return isEditMode ? (
-                    <EditableProjects 
-                        projects={data.projects} 
-                        onChange={(newProjects) => updateSection('projects', newProjects)}
+                    <EditableProjects
+                        projects={data.projects}
+                        onChange={(newProjects) =>
+                            updateSection('projects', newProjects)
+                        }
                     />
                 ) : (
                     <Projects projects={data.projects} />
                 );
             case 'contact':
-                return <Contact/>;
+                return <Contact />;
             default:
                 return null;
         }
@@ -252,7 +264,7 @@ function AppContent() {
             return null;
         }
 
-        // For About we don't want the Add button, but still want Save/Undo
+        // Hide adding button for About
         if (activeModal === 'about') {
             return <EditModeActions onAdd={handleAddCard} showAdd={false} />;
         }
@@ -272,15 +284,18 @@ function AppContent() {
 
     return (
         <div className="relative w-full min-h-screen bg-space-darker">
-            {/* Stars Background */}
+            {/* Stars bg */}
             <StarField starCount={300} />
 
-                {/* Main Content */}
+            {/* Main content */}
             <div className="relative z-10">
-                {/* Header with Typing Effect */}
-                <TypingHeader onAsteroidClick={handleAsteroidClick} />                {/* Planets Container - Separate section */}
+                {/* Header with typing effect */}
+                <TypingHeader
+                    onAsteroidClick={handleAsteroidClick}
+                />
+                {/* Planets container section */}
                 <section id="planets-section" className="relative min-h-screen">
-                    {/* Desktop: Absolute positioned planets */}
+                    {/* Desktop: absolute positioned planets */}
                     <div className="hidden md:block relative h-screen max-w-7xl mx-auto">
                         {destinations.map(dest => (
                             <div
@@ -313,14 +328,19 @@ function AppContent() {
                                     transform: dest.mobilePosition.transform
                                 }}
                             >
-                                <Planet {...dest} size={Math.max(100, dest.size * 0.6)} onClick={handlePlanetClick} />
+                                <Planet
+                                    {...dest}
+                                    size={
+                                        Math.max(100, dest.size * 0.6)
+                                    }
+                                    onClick={handlePlanetClick} />
                             </div>
                         ))}
                     </div>
                 </section>
             </div>
 
-            {/* Content Modal */}
+            {/* Content modal */}
             <Modal
                 isOpen={activeModal !== null}
                 onClose={handleCloseModal}
@@ -331,14 +351,14 @@ function AppContent() {
                 {renderModalContent()}
             </Modal>
 
-            {/* Password Modal */}
-            <PasswordModal 
+            {/* Password modal */}
+            <PasswordModal
                 isOpen={isPasswordModalOpen}
                 onClose={() => setIsPasswordModalOpen(false)}
                 isExitMode={isEditMode}
             />
 
-            {/* Form Modal for Adding Cards */}
+            {/* Form modal */}
             <FormModal
                 isOpen={isFormModalOpen}
                 onClose={() => setIsFormModalOpen(false)}
@@ -350,7 +370,9 @@ function AppContent() {
     );
 }
 
-// Main App component wrapped with EditModeProvider
+/**
+ * Main App component wrapped with EditModeProvider
+ */
 function App() {
     return (
         <EditModeProvider initialData={sampleData}>

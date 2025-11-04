@@ -4,7 +4,6 @@ import { useEditMode } from '../contexts/EditModeContext';
 /**
  * PasswordModal - Modal for entering/exiting edit mode
  * 
- * Props:
  * @param {boolean} isOpen - Modal visibility
  * @param {function} onClose - Close handler
  * @param {boolean} isExitMode - True if exiting edit mode, false if entering
@@ -22,7 +21,7 @@ const PasswordModal = ({ isOpen, onClose, isExitMode = false }) => {
         }
     }, [isOpen]);
 
-    // Close on Escape key
+    // Close on escape
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape' && isOpen) {
@@ -38,7 +37,7 @@ const PasswordModal = ({ isOpen, onClose, isExitMode = false }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         if (isExitMode) {
             // Exit edit mode
             const success = exitEditMode();
@@ -139,11 +138,10 @@ const PasswordModal = ({ isOpen, onClose, isExitMode = false }) => {
                         </button>
                         <button
                             type="submit"
-                            className={`flex-1 px-3 py-2 sm:px-4 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base ${
-                                isExitMode
+                            className={`flex-1 px-3 py-2 sm:px-4 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base ${isExitMode
                                     ? 'bg-red-600 hover:bg-red-700 text-white'
                                     : 'bg-blue-600 hover:bg-blue-700 text-white'
-                            }`}
+                                }`}
                         >
                             {isExitMode ? 'Exit' : 'Unlock'}
                         </button>

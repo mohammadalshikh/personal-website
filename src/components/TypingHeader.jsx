@@ -5,7 +5,6 @@ import Asteroid from './Asteroid';
 import heartSvg from '../assets/heart.svg?raw';
 import { incrementLogCounter } from '../services/dataService';
 
-
 const primaryMessages = [
     `> Log ID: STARSHIP-042 |PAUSE|1000|PAUSE|
 
@@ -31,7 +30,13 @@ const secondaryMessages = [
     "If you made it this far, here's a pixel heart for you:",
 ];
 
-
+/**
+ * TypingHeader - Header with typing animation and audio
+ * 
+ * @param {function} onBeginExploring - Callback when "Begin Exploring" is clicked
+ * @param {function} onAsteroidClick - Callback when asteroid is clicked
+ * @returns 
+ */
 const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
 
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
@@ -112,14 +117,14 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
     }, [audioReady, isTyping, displayedText, userInteracted]);
 
     const handleStartClick = () => {
-        // Increment log counter in background (don't wait)
+        // Increment log counter in background
         incrementLogCounter().catch(err => {
             console.error('Failed to increment log counter:', err);
         });
 
         // For mobile Safari, force audio ready and unlock it
         if (audioRef.current) {
-            audioRef.current.load(); // Force load
+            audioRef.current.load();
             audioRef.current.play()
                 .then(() => {
                     audioRef.current.pause();
@@ -128,7 +133,6 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                     setUserInteracted(true);
                 })
                 .catch(() => {
-                    // Set ready anyway, typing will work silently
                     setAudioReady(true);
                     setUserInteracted(true);
                 });
@@ -146,7 +150,7 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
         // Check if message has pauses
         if (currentMessage.includes('|PAUSE|')) {
 
-            // Split by |PAUSE| to get alternating text and duration
+            // Split by |PAUSE| to get alternating text and pause
             const parts = currentMessage.split('|PAUSE|');
 
             let textSegments = [];
@@ -154,11 +158,9 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
 
             for (let i = 0; i < parts.length; i++) {
                 if (i % 2 === 0) {
-                    // Even indices are text segments
-                    textSegments.push(parts[i]);
+                    textSegments.push(parts[i]); // text
                 } else {
-                    // Odd indices are pause durations
-                    pauseDurations.push(parseInt(parts[i]));
+                    pauseDurations.push(parseInt(parts[i])); // pause
                 }
             }
 
@@ -182,21 +184,17 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                     const currentSegment = textSegments[segmentIndex];
 
                     if (charIndex < currentSegment.length) {
-                        // Type next character from current segment
                         accumulatedText = textSegments.slice(0, segmentIndex).join('') +
                             currentSegment.substring(0, charIndex + 1);
                         setDisplayedText(accumulatedText);
                         charIndex++;
                     } else {
-                        // Finished current segment
-                        segmentIndex++;
+                        segmentIndex++; // Move to next segment
                         charIndex = 0;
 
                         if (segmentIndex < textSegments.length && segmentIndex - 1 < pauseDurations.length) {
-                            // There's a pause before the next segment
                             isPaused = true;
 
-                            // Stop typing sound during pause
                             if (audioRef.current) {
                                 audioRef.current.pause();
                                 audioRef.current.currentTime = 0;
@@ -205,14 +203,16 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                             setTimeout(() => {
                                 isPaused = false;
 
-                                // Resume typing sound after pause
-                                if (audioRef.current && !isMuted && segmentIndex < textSegments.length) {
+                                if (audioRef.current && !isMuted
+                                    && segmentIndex < textSegments.length) {
                                     audioRef.current.currentTime = 0;
                                     audioRef.current.play().catch(() => { });
                                 }
-                            }, pauseDurations[segmentIndex - 1]);
+
+                            },
+                                pauseDurations[segmentIndex - 1]
+                            );
                         } else if (segmentIndex >= textSegments.length) {
-                            // All segments done
                             if (currentMessages[currentMessageIndex].includes("pixel heart")) {
                                 setDisplayedText(accumulatedText + heartSvg);
                             } else {
@@ -222,7 +222,6 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                             setIsTyping(false);
                             setShowArrow(true);
 
-                            // Stop typing sound
                             if (audioRef.current) {
                                 audioRef.current.pause();
                                 audioRef.current.currentTime = 0;
@@ -234,7 +233,7 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
 
             typingIntervalRef.current = setInterval(typeNextChar, 50);
         } else {
-            // Simple message without pauses (original logic)
+            // Simple message without pauses
             let charIndex = 0;
 
             // Start typing sound
@@ -290,11 +289,9 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
             setShowArrow(false);
 
             if (messageMode === 'primary') {
-                // Show choice buttons after primary messages
-                setShowChoiceButtons(true);
+                setShowChoiceButtons(true); // after primary
             } else {
-                // After secondary messages, show only explore button
-                setShowExploreButton(true);
+                setShowExploreButton(true); // after secondary
             }
         }
     };
@@ -324,7 +321,6 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
             <button
                 onClick={() => {
                     setIsMuted(!isMuted);
-                    // If currently playing and we're muting, stop the audio
                     if (!isMuted && audioRef.current && !audioRef.current.paused) {
                         audioRef.current.pause();
                     }
@@ -333,20 +329,20 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                 aria-label={isMuted ? "Unmute" : "Mute"}
             >
                 {isMuted ? (
-                    // Muted icon (speaker with X)
+                    // Muted icon
                     <svg className="w-5 h-5 lg:w-6 lg:h-6 text-gray-400 group-hover:text-space-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
                     </svg>
                 ) : (
-                    // Unmuted icon (speaker with waves)
+                    // Unmuted icon
                     <svg className="w-5 h-5 lg:w-6 lg:h-6 text-gray-400 group-hover:text-space-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
                     </svg>
                 )}
             </button>
 
-            {/* Social Links - top right of header */}
+            {/* Social Links */}
             <div className="social-links">
                 {/* LinkedIn */}
                 <a
@@ -375,25 +371,24 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                 </a>
             </div>
 
-            {/* Name Heading */}
+            {/* Name heading */}
             <h1 ref={nameHeadingRef} className="name-heading">
                 Mohammad<span className="name-break"> </span>Alshikh
             </h1>
 
-            {/* Asteroid - Admin Access */}
+            {/* Asteroid */}
             <div className="absolute top-[calc(50%-110px)] right-8 sm:top-[calc(50%-110px)] sm:right-28 md:right-36 lg:right-44 z-30">
                 <Asteroid size={35} className="drop-shadow-[0_0_15px_rgba(107,114,128,0.5)] sm:w-[50px] sm:h-[50px]" onClick={onAsteroidClick} />
             </div>
 
-            {/* Astronaut Logo */}
+            {/* Astronaut logo */}
             <div className="astronaut-logo-container">
                 <AstronautLogo size={80} className="drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" />
             </div>
 
-            {/* Start Button */}
+            {/* Start button */}
             {!userInteracted && (
                 <div className="text-center max-w-4xl px-4">
-                    {/* Same fixed height as typing messages to prevent layout shift */}
                     <div className="relative flex flex-col items-center justify-start" style={{ minHeight: '350px' }}>
                         <div className="h-[200px] flex items-center justify-center w-full -mt-12">
                             <button
@@ -410,9 +405,7 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
             {/* Typing Messages - shown after user interaction */}
             {userInteracted && (
                 <div className="typing-messages-container">
-                    {/* Fixed height container */}
                     <div className="fixed-height-container" style={{ minHeight: '350px' }}>
-                        {/* Typing text - dynamic height */}
                         <div className="flex items-start justify-start w-full">
                             <p className="typing-text">
                                 <span dangerouslySetInnerHTML={{ __html: displayedText }} />
@@ -420,7 +413,7 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
                             </p>
                         </div>
 
-                        {/* Arrow button OR Choice buttons */}
+                        {/* Arrow button OR choice buttons */}
                         <div className="mt-6 min-h-[3rem] flex items-center justify-center gap-4">
                             {showArrow && (
                                 <button

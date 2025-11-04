@@ -1,12 +1,10 @@
 /**
  * Planet Component - Represents a clickable destination/section
- * Designed to accept data props and be future-ready for backend integration
  * 
- * Props:
  * @param {string} id - Unique identifier (for future backend)
- * @param {string} name - Planet/section name
+ * @param {string} name - Planet name
  * @param {string} color - Color theme (purple, blue, cyan, pink, orange)
- * @param {object} position - Position object with top/left/right/bottom properties
+ * @param {object} position - Position object (top/left/right/bottom)
  * @param {number} size - Size in pixels (default: 80)
  * @param {function} onClick - Click handler
  */
@@ -18,7 +16,7 @@ const Planet = ({
     size = 80,
     onClick
 }) => {
-    // Planet texture patterns - Photorealistic style
+    // Planet texture patterns
     const getPlanetTexture = (color) => {
         const textures = {
             blue: (

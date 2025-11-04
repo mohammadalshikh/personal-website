@@ -1,6 +1,5 @@
 /**
  * Contact Component - Contact form
- * Designed to accept data props and be backend-ready
  */
 const Contact = () => {
     const handleSubmit = (e) => {
@@ -8,7 +7,6 @@ const Contact = () => {
         const form = e.target;
         const formData = new FormData(form);
 
-        // Submit to 3rd party form service (replace with your actual endpoint)
         fetch('https://formspree.io/f/mvgvwwaq', {
             method: 'POST',
             body: formData,
@@ -16,17 +14,17 @@ const Contact = () => {
                 'Accept': 'application/json'
             }
         })
-        .then(response => {
-            if (response.ok) {
-                alert('Message sent successfully!');
-                form.reset();
-            } else {
+            .then(response => {
+                if (response.ok) {
+                    alert('Message sent successfully!');
+                    form.reset();
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            })
+            .catch(() => {
                 alert('Failed to send message. Please try again.');
-            }
-        })
-        .catch(() => {
-            alert('Failed to send message. Please try again.');
-        });
+            });
     };
 
     return (

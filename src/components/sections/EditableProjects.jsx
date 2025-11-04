@@ -3,6 +3,9 @@ import EditableCard from '../EditableCard';
 
 /**
  * EditableProjects - Edit mode version of Projects component
+ * 
+ * @param {Array} projects - List of project objects
+ * @param {function} onChange - function(newProjectsArray)
  */
 const EditableProjects = ({ projects = [], onChange }) => {
     const [draggedIndex, setDraggedIndex] = useState(null);
@@ -23,7 +26,9 @@ const EditableProjects = ({ projects = [], onChange }) => {
     };
 
     const handleDelete = (index) => {
-        const confirmed = window.confirm('Are you sure you want to delete this project?');
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this project?'
+        );
         if (confirmed) {
             const newProjects = projects.filter((_, i) => i !== index);
             onChange(newProjects);
@@ -40,12 +45,10 @@ const EditableProjects = ({ projects = [], onChange }) => {
     };
 
     const handleTechnologiesChange = (index, value) => {
-        // Just store the raw string value
         handleFieldChange(index, 'technologies', value);
     };
 
     const handleTechnologiesBlur = (index, value) => {
-        // Convert string to array on blur
         if (typeof value === 'string') {
             const array = value.split(',').map((item) => item.trim()).filter((item) => item);
             handleFieldChange(index, 'technologies', array);

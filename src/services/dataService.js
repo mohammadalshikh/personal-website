@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-/**
- * Data Service for managing website content
- * Uses JSONBin.io for JSON storage and ImgBB for image hosting
- */
-
-// Get environment variables - escape $ in API key if needed
+// Get environment variables
 const JSONBIN_API_KEY = import.meta.env.VITE_JSONBIN_API_KEY;
 const JSONBIN_BIN_ID = import.meta.env.VITE_JSONBIN_BIN_ID;
 const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
@@ -14,20 +9,23 @@ const JSONBIN_BASE_URL = 'https://api.jsonbin.io/v3';
 const IMGBB_BASE_URL = 'https://api.imgbb.com/1/upload';
 
 /**
- * Fetch all data from JSONBin
- * Returns { data, success } where success indicates if fetch was successful
+ * Fetch all data from JSONBin (and ImgBB for images)
+ * 
+ * @returns {Promise<{data: object, success: boolean}>} Data and success status
  */
 export const fetchData = async () => {
     try {
-        const response = await axios.get(`${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}/latest`, {
-            headers: {
-                'X-Access-Key': JSONBIN_API_KEY,
-            },
-        });
+        const response = await axios.get(
+            `${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}/latest`,
+            {
+                headers: {
+                    'X-Access-Key': JSONBIN_API_KEY,
+                },
+            }
+        );
         return { data: response.data.record, success: true };
     } catch {
-        // Return default data structure if fetch fails
-        return { data: getDefaultData(), success: false };
+        return { data: getDefaultData(), success: false }; // Fallback to sample
     }
 };
 
@@ -54,18 +52,21 @@ export const saveData = async (data) => {
 export const incrementLogCounter = async () => {
     try {
         // Fetch current data
-        const response = await axios.get(`${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}/latest`, {
-            headers: {
-                'X-Access-Key': JSONBIN_API_KEY,
-            },
-        });
-        
+        const response = await axios.get(
+            `${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}/latest`,
+            {
+                headers: {
+                    'X-Access-Key': JSONBIN_API_KEY,
+                },
+            }
+        );
+
         const data = response.data.record;
         const currentLogs = data.logs || 0;
-        
+
         // Increment and save
         data.logs = currentLogs + 1;
-        
+
         await axios.put(
             `${JSONBIN_BASE_URL}/b/${JSONBIN_BIN_ID}`,
             data,
@@ -76,7 +77,7 @@ export const incrementLogCounter = async () => {
                 },
             }
         );
-        
+
         return data.logs;
     } catch (error) {
         console.error('Failed to increment log counter:', error);
@@ -86,19 +87,24 @@ export const incrementLogCounter = async () => {
 
 /**
  * Upload image to ImgBB
+ * 
  * @param {File} file - Image file to upload
- * @returns {Promise<string>} - URL of uploaded image
+ * @returns {Promise<string>} URL of uploaded image
  */
 export const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('key', IMGBB_API_KEY);
 
-    const response = await axios.post(IMGBB_BASE_URL, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    });
+    const response = await axios.post(
+        IMGBB_BASE_URL,
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }
+    );
 
     return response.data.data.url;
 };
@@ -122,7 +128,7 @@ const getDefaultData = () => ({
  */
 export const validateConfig = () => {
     const missingVars = [];
-    
+
     if (!JSONBIN_API_KEY || JSONBIN_API_KEY === 'your_jsonbin_api_key_here') {
         missingVars.push('VITE_JSONBIN_API_KEY');
     }

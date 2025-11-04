@@ -1,15 +1,12 @@
 import { useMemo } from 'react';
 
 /**
- * StarField Component - Creates animated star background
- * Generates random stars with twinkling animation
+ * StarField Component - Creates animated stars background
  * 
- * Props:
  * @param {number} starCount - Number of stars to generate (default: 200)
  * @param {boolean} animated - Whether stars should twinkle (default: true)
  */
 const StarField = ({ starCount = 200, animated = true }) => {
-    // Generate stars once on mount using useMemo
     const stars = useMemo(() => {
         return Array.from({ length: starCount }, (_, i) => ({
             id: i,

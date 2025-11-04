@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
 
 /**
- * Modal Component - Reusable modal/window for displaying section content
- * Mobile-friendly with scrolling support
+ * Modal Component - Reusable modal/window
  * 
- * Props:
  * @param {boolean} isOpen - Controls modal visibility
  * @param {function} onClose - Close handler
  * @param {string} title - Modal title
- * @param {string} color - Theme color matching planet (purple, blue, cyan, pink, orange)
+ * @param {string} color - Theme color matching planet colors
  * @param {ReactNode} children - Modal content
  * @param {ReactNode} editModeActions - Optional edit mode action buttons
  */
 const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeActions }) => {
-    // Prevent body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -26,7 +23,7 @@ const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeAct
         };
     }, [isOpen]);
 
-    // Close on Escape key
+    // Close on escape
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape' && isOpen) {
@@ -69,13 +66,13 @@ const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeAct
                     >
                         {title}
                     </h2>
-                    
-                    {/* Action Buttons - Close & Edit Mode Actions */}
+
+                    {/* Action buttons - close & edit mode actions */}
                     <div className="flex flex-wrap items-center justify-end gap-2">
-                        {/* Edit Mode Actions */}
+                        {/* Edit mode actions */}
                         {editModeActions}
                         
-                        {/* Close Button */}
+                        {/* Close button */}
                         <button
                             onClick={onClose}
                             className="btn-close"

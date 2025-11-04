@@ -3,7 +3,6 @@ import { useEditMode } from '../contexts/EditModeContext';
 /**
  * EditModeActions - Action buttons for edit mode in modals
  * 
- * Props:
  * @param {function} onAdd - Handler for add new card button
  */
 const EditModeActions = ({ onAdd, showAdd = true }) => {
@@ -15,15 +14,14 @@ const EditModeActions = ({ onAdd, showAdd = true }) => {
 
     return (
         <>
-            {/* Undo Button */}
+            {/* Undo button */}
             <button
                 onClick={undoChanges}
                 disabled={!isDirty || isLoading}
-                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
-                    isDirty && !isLoading
+                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${isDirty && !isLoading
                         ? 'bg-space-darker hover:bg-gray-700 text-gray-300 border border-gray-600'
                         : 'bg-gray-800 text-gray-600 border border-gray-800 cursor-not-allowed'
-                }`}
+                    }`}
                 title="Undo all changes"
                 aria-label="Undo changes"
             >
@@ -32,15 +30,14 @@ const EditModeActions = ({ onAdd, showAdd = true }) => {
                 </svg>
             </button>
 
-            {/* Save Button */}
+            {/* Save button */}
             <button
                 onClick={handleSave}
                 disabled={!isDirty || isLoading}
-                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${
-                    isDirty && !isLoading
+                className={`w-10 h-10 flex items-center justify-center rounded-full transition-all ${isDirty && !isLoading
                         ? 'bg-green-600 hover:bg-green-700 text-white'
                         : 'bg-gray-800 text-gray-600 cursor-not-allowed'
-                }`}
+                    }`}
                 title="Save changes"
                 aria-label="Save changes"
             >
@@ -56,7 +53,7 @@ const EditModeActions = ({ onAdd, showAdd = true }) => {
                 )}
             </button>
 
-            {/* Add New Card Button (optional) */}
+            {/* Add button (optional) */}
             {showAdd && (
                 <button
                     onClick={onAdd}

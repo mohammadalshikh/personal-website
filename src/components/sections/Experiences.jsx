@@ -1,10 +1,7 @@
 /**
  * Experiences Component - Displays career/work experience
- * Designed to accept data props and be backend-ready
  * 
- * Props:
  * @param {Array} experiences - Array of experience objects
- *   Each object: { id, company, position, duration, description, technologies, image }
  */
 const Experiences = ({ experiences = [] }) => {
     return (

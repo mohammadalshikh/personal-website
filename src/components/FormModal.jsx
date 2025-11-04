@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import { uploadImage } from '../services/dataService';
 
 /**
- * FormModal - Modal for adding new cards
- * Adapts fields based on section type
+ * FormModal - Modal for adding new cards. Adapts fields based on section type
  * 
- * Props:
  * @param {boolean} isOpen - Modal visibility
  * @param {function} onClose - Close handler
  * @param {function} onSubmit - Submit handler with form data
- * @param {string} sectionType - Type: 'experiences', 'education', 'projects', 'about'
+ * @param {string} sectionType - Type (experiences, education, etc.)
  * @param {string} color - Theme color
  */
 const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' }) => {
@@ -25,7 +23,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
         }
     }, [isOpen, sectionType]);
 
-    // Close on Escape
+    // Close on escape
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape' && isOpen) {
@@ -108,7 +106,7 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         const parsed = { ...formData };
         ['technologies', 'achievements'].forEach((key) => {
             if (key in parsed && typeof parsed[key] === 'string') {
@@ -351,9 +349,8 @@ const FormModal = ({ isOpen, onClose, onSubmit, sectionType, color = 'purple' })
                 />
                 <label
                     htmlFor="image-upload"
-                    className={`px-4 py-2 bg-space-darker border border-space-purple/30 rounded-lg cursor-pointer hover:border-space-purple transition-colors text-sm ${
-                        isUploading ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className={`px-4 py-2 bg-space-darker border border-space-purple/30 rounded-lg cursor-pointer hover:border-space-purple transition-colors text-sm ${isUploading ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                 >
                     {isUploading ? 'Uploading...' : 'Choose File'}
                 </label>

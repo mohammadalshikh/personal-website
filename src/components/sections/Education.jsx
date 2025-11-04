@@ -1,10 +1,7 @@
 /**
  * Education Component - Displays educational background
- * Designed to accept data props and be backend-ready
  * 
- * Props:
  * @param {Array} education - Array of education objects
- *   Each object: { id, institution, degree, field, duration, achievements, image }
  */
 const Education = ({ education = [] }) => {
     return (

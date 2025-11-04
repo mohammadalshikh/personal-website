@@ -1,6 +1,5 @@
 /**
- * AstronautLogo Component - Modern, minimalist astronaut helmet icon
- * Serves as the website's signature logo
+ * AstronautLogo Component - Serves as the website's logo
  */
 const AstronautLogo = ({ size = 100, className = "" }) => {
     return (
@@ -22,7 +21,7 @@ const AstronautLogo = ({ size = 100, className = "" }) => {
                 fill="none"
             />
 
-            {/* Visor - main viewing window */}
+            {/* Visor */}
             <ellipse
                 cx="50"
                 cy="48"
@@ -33,7 +32,7 @@ const AstronautLogo = ({ size = 100, className = "" }) => {
                 fill="none"
             />
 
-            {/* Visor inner reflection detail */}
+            {/* Visor inner reflection */}
             <ellipse
                 cx="50"
                 cy="46"

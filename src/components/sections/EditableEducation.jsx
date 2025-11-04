@@ -3,6 +3,9 @@ import EditableCard from '../EditableCard';
 
 /**
  * EditableEducation - Edit mode version of Education component
+ * 
+ * @param {Array} education - List of education objects
+ * @param {function} onChange - function(newEducationArray)
  */
 const EditableEducation = ({ education = [], onChange }) => {
     const [draggedIndex, setDraggedIndex] = useState(null);
@@ -23,7 +26,9 @@ const EditableEducation = ({ education = [], onChange }) => {
     };
 
     const handleDelete = (index) => {
-        const confirmed = window.confirm('Are you sure you want to delete this education entry?');
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this education entry?'
+        );
         if (confirmed) {
             const newEducation = education.filter((_, i) => i !== index);
             onChange(newEducation);

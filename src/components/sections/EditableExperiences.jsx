@@ -3,7 +3,9 @@ import EditableCard from '../EditableCard';
 
 /**
  * EditableExperiences - Edit mode version of Experiences component
- * Supports inline editing, drag-and-drop reordering, and deletion
+ * 
+ * @param {Array} experiences - List of experience objects
+ * @param {function} onChange - function(newExperiencesArray)
  */
 const EditableExperiences = ({ experiences = [], onChange }) => {
     const [draggedIndex, setDraggedIndex] = useState(null);
@@ -24,7 +26,9 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
     };
 
     const handleDelete = (index) => {
-        const confirmed = window.confirm('Are you sure you want to delete this experience?');
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this experience?'
+        );
         if (confirmed) {
             const newExperiences = experiences.filter((_, i) => i !== index);
             onChange(newExperiences);

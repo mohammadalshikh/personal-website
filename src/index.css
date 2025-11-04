@@ -61,7 +61,7 @@
         @apply relative bg-gradient-to-br from-space-dark to-space-darker border-2 border-space-purple rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col;
         max-height: 75vh;
     }
-    
+
     @media (min-width: 768px) {
         .modal-content {
             max-height: 90vh;
@@ -72,14 +72,14 @@
         @apply sticky top-0 bg-space-darker/95 backdrop-blur-sm border-b border-space-purple/30 p-4 md:p-6 flex flex-wrap items-center justify-between gap-3 z-10 flex-shrink-0;
         border-radius: 1rem 1rem 0 0;
     }
-    
+
     /* Ensure title takes full width on very small screens */
     @media (max-width: 380px) {
         .modal-header {
             @apply flex-col items-start;
         }
-        
-        .modal-header > div:last-child {
+
+        .modal-header>div:last-child {
             @apply w-full justify-start;
         }
     }
@@ -89,37 +89,37 @@
         padding: 1.5rem;
         -webkit-overflow-scrolling: touch;
     }
-    
+
     @media (min-width: 768px) {
         .modal-body {
             padding: 2rem;
         }
     }
-    
-    /* Custom scrollbar for modal-body - Force visibility on all browsers */
+
+    /* Custom scrollbar for modal-body */
     .modal-body::-webkit-scrollbar {
         width: 10px;
         -webkit-appearance: none;
     }
-    
+
     .modal-body::-webkit-scrollbar-track {
         background: rgba(10, 14, 39, 0.3);
         border-radius: 10px;
         margin: 8px 0;
         -webkit-appearance: none;
     }
-    
+
     .modal-body::-webkit-scrollbar-thumb {
         background: linear-gradient(180deg, #6366f1, #ec4899);
         border-radius: 10px;
         border: 2px solid rgba(10, 14, 39, 0.3);
         -webkit-appearance: none;
     }
-    
+
     .modal-body::-webkit-scrollbar-thumb:hover {
         background: linear-gradient(180deg, #818cf8, #f472b6);
     }
-    
+
     /* Firefox scrollbar */
     .modal-body {
         scrollbar-width: thin;
@@ -187,7 +187,7 @@
         @apply flex items-center gap-2 px-4 py-2 text-xs bg-space-purple/20 border border-space-purple/40 rounded-lg hover:bg-space-purple/30 hover:border-space-purple transition-all duration-200;
     }
 
-    /* TypingHeader Component Styles */
+    /* TypingHeader component styles */
     .typing-header {
         @apply relative flex flex-col items-center justify-center pt-32 md:pt-40;
     }
@@ -327,15 +327,20 @@
 
     /* Floating animation for asteroid */
     @keyframes float {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: translateY(0px) rotate(0deg);
         }
+
         25% {
             transform: translateY(-10px) rotate(2deg);
         }
+
         50% {
             transform: translateY(-15px) rotate(0deg);
         }
+
         75% {
             transform: translateY(-10px) rotate(-2deg);
         }
@@ -355,7 +360,7 @@
         @apply absolute inset-0 overflow-hidden pointer-events-none;
     }
 
-    /* Pixelated Comet Styles */
+    /* Pixelated comet styles */
     .comet-horizontal {
         @apply absolute left-0 flex items-center gap-1 animate-comet-horizontal;
     }

@@ -15,6 +15,9 @@ const verifyPassword = (password) => {
 
 /**
  * EditModeProvider - Manages edit mode state and data synchronization
+ * 
+ * @param {Object} children - Child components
+ * @param {Object} initialData - Sample data (fallback if fetch fails)
  */
 export const EditModeProvider = ({ children, initialData }) => {
     const [isEditMode, setIsEditMode] = useState(false);
@@ -27,7 +30,7 @@ export const EditModeProvider = ({ children, initialData }) => {
     const [binConnected, setBinConnected] = useState(false);
     const [logsCount, setLogsCount] = useState(0);
 
-    // Validate configuration on mount
+    // Validate config on mount
     useEffect(() => {
         const isValid = validateConfig();
         setConfigValid(isValid);
@@ -39,22 +42,22 @@ export const EditModeProvider = ({ children, initialData }) => {
             setIsLoading(true);
             try {
                 const { data: fetchedData, success } = await fetchData();
-                
+
+                // Successfully fetched from bin
                 if (success) {
-                    // Successfully fetched from bin - use bin data
                     setData(fetchedData);
                     setOriginalData(fetchedData);
                     setLogsCount(fetchedData.logs || 0);
                     setBinConnected(true);
                 } else {
-                    // Fetch failed - use fallback initialData (sample data)
+                    // Fetch failed, use fallback data
                     setData(initialData);
                     setOriginalData(initialData);
                     setLogsCount(0);
                     setBinConnected(false);
                 }
             } catch {
-                // Failed to load data, will use initialData
+                // Fetch failed, use fallback data
                 setData(initialData);
                 setOriginalData(initialData);
                 setLogsCount(0);
@@ -97,7 +100,7 @@ export const EditModeProvider = ({ children, initialData }) => {
                 return false;
             }
         }
-        
+
         setIsEditMode(false);
         setIsAuthenticated(false);
         setData(originalData);
@@ -149,7 +152,7 @@ export const EditModeProvider = ({ children, initialData }) => {
         const confirmed = window.confirm(
             'Are you sure you want to undo all changes?'
         );
-        
+
         if (confirmed) {
             setData(originalData);
             setIsDirty(false);
