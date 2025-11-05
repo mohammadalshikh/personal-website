@@ -41,6 +41,10 @@
 }
 
 @layer components {
+    .planet-wrapper {
+        @apply absolute;
+    }
+
     .planet-button {
         @apply relative cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95;
     }
@@ -51,6 +55,22 @@
 
     .label-text {
         @apply text-[10px] md:text-xs font-bold text-white text-glow px-3 py-1 rounded-full bg-space-dark/60 backdrop-blur-sm border border-white/20;
+    }
+
+    .planet-texture-wrapper {
+        @apply relative rounded-full shadow-xl overflow-hidden transition-shadow duration-300;
+    }
+
+    .group:hover .planet-texture-wrapper {
+        @apply shadow-2xl;
+    }
+
+    .planet-hover-ring {
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-full opacity-0 transition-all duration-500 pointer-events-none;
+    }
+
+    .group:hover .planet-hover-ring {
+        @apply opacity-100;
     }
 
     .modal-overlay {
@@ -82,6 +102,14 @@
         .modal-header>div:last-child {
             @apply w-full justify-start;
         }
+    }
+
+    .modal-header-actions {
+        @apply flex flex-wrap items-center justify-end gap-2;
+    }
+
+    .modal-close-icon {
+        @apply w-6 h-6;
     }
 
     .modal-body {
@@ -327,5 +355,1011 @@
 
     .star-field {
         @apply absolute inset-0 overflow-hidden pointer-events-none;
+    }
+
+    .star {
+        @apply absolute rounded-full bg-white;
+    }
+
+    .asteroid-button-container {
+        @apply relative;
+    }
+
+    .asteroid-button-group {
+        @apply relative;
+    }
+
+    .asteroid-hover-circle {
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-full opacity-0 transition-all duration-500 pointer-events-none;
+    }
+
+    .group:hover .asteroid-hover-circle {
+        @apply opacity-100;
+    }
+
+    .asteroid-svg {
+        @apply transition-transform duration-300;
+    }
+
+    .group:hover .asteroid-svg {
+        @apply scale-110;
+    }
+
+    .form-modal-overlay {
+        @apply fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fade-in;
+    }
+
+    .form-modal-container {
+        @apply bg-space-dark border-2 border-space-purple/50 rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl animate-slide-up;
+    }
+
+    .form-modal-header {
+        @apply flex justify-between items-center mb-6;
+    }
+
+    .form-modal-title {
+        @apply text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent;
+    }
+
+    .form-modal-close {
+        @apply text-gray-400 hover:text-white transition-colors;
+    }
+
+    .form-modal-close-icon {
+        @apply w-6 h-6;
+    }
+
+    .form-modal-body {
+        @apply space-y-4;
+    }
+
+    .form-modal-label {
+        @apply block text-sm font-medium text-gray-300 mb-1;
+    }
+
+    .form-modal-input {
+        @apply w-full px-3 py-2 sm:px-4 sm:py-3 bg-space-darker border border-space-purple/30 rounded-lg text-white placeholder-gray-500 transition-colors;
+    }
+
+    .form-modal-input:focus {
+        @apply outline-none border-space-purple;
+    }
+
+    .form-modal-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .form-modal-upload-wrapper {
+        @apply flex items-center gap-3;
+    }
+
+    .form-modal-upload-hidden {
+        @apply hidden;
+    }
+
+    .form-modal-upload-button {
+        @apply px-4 py-2 bg-space-darker border border-space-purple/30 rounded-lg cursor-pointer hover:border-space-purple transition-colors text-sm;
+    }
+
+    .form-modal-upload-button-disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .form-modal-upload-preview {
+        @apply w-12 h-12 object-contain rounded-lg border border-space-purple/30;
+    }
+
+    .form-modal-upload-hint {
+        @apply text-xs text-gray-500 mt-1;
+    }
+
+    .form-modal-buttons {
+        @apply flex gap-3 pt-4;
+    }
+
+    .form-modal-cancel {
+        @apply flex-1 px-4 py-3 bg-space-darker border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors font-medium;
+    }
+
+    .form-modal-submit {
+        @apply flex-1 px-4 py-3 bg-space-purple hover:bg-purple-600 text-white rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-300 mb-1;
+    }
+
+    .form-input {
+        @apply w-full px-3 py-2 bg-space-darker border border-space-purple/30 rounded-lg text-white placeholder-gray-500 transition-colors;
+    }
+
+    .form-input:focus {
+        @apply outline-none border-space-purple;
+    }
+
+    .form-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .form-textarea {
+        @apply w-full px-3 py-2 bg-space-darker border border-space-purple/30 rounded-lg text-white placeholder-gray-500 transition-colors resize-none;
+    }
+
+    .form-textarea:focus {
+        @apply outline-none border-space-purple;
+    }
+
+    .form-textarea::placeholder {
+        @apply text-gray-500;
+    }
+
+    .form-file-input {
+        @apply hidden;
+    }
+
+    .form-file-label {
+        @apply px-4 py-2 bg-space-darker border border-space-purple/30 rounded-lg cursor-pointer hover:border-space-purple transition-colors text-sm;
+    }
+
+    .form-file-label-disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .form-file-preview {
+        @apply w-12 h-12 object-contain rounded-lg border border-space-purple/30;
+    }
+
+    .form-file-helper {
+        @apply text-xs text-gray-500 mt-1;
+    }
+
+    .form-buttons {
+        @apply flex gap-3 pt-4;
+    }
+
+    .form-button-cancel {
+        @apply flex-1 px-4 py-3 bg-space-darker border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors font-medium;
+    }
+
+    .form-button-submit {
+        @apply flex-1 px-4 py-3 bg-space-purple hover:bg-purple-600 text-white rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .password-modal-overlay {
+        @apply fixed inset-0 z-[100] flex items-start sm:items-center justify-center pt-20 sm:pt-0 bg-black/70 backdrop-blur-sm animate-fade-in;
+    }
+
+    .password-modal-container {
+        @apply bg-space-dark border-2 border-space-purple/50 rounded-2xl p-4 sm:p-8 max-w-sm sm:max-w-md w-full mx-4 shadow-2xl animate-slide-up;
+    }
+
+    .password-modal-icon-wrapper {
+        @apply flex justify-center mb-4 sm:mb-6;
+    }
+
+    .password-modal-icon-bg {
+        @apply w-12 h-12 sm:w-16 sm:h-16 bg-space-purple/20 rounded-full flex items-center justify-center;
+    }
+
+    .password-modal-icon {
+        @apply w-6 h-6 sm:w-8 sm:h-8 text-space-purple;
+    }
+
+    .password-modal-title {
+        @apply text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 bg-gradient-to-r from-space-purple to-purple-400 bg-clip-text text-transparent;
+    }
+
+    .password-modal-status {
+        @apply text-center mb-4;
+    }
+
+    .password-modal-status-text {
+        @apply text-sm text-gray-400;
+    }
+
+    .password-modal-status-count {
+        @apply text-space-purple font-semibold;
+    }
+
+    .password-modal-status-connected {
+        @apply text-sm font-semibold text-green-500;
+    }
+
+    .password-modal-status-disconnected {
+        @apply text-sm font-semibold text-red-500;
+    }
+
+    .password-modal-form {
+        @apply space-y-4 sm:space-y-6;
+    }
+
+    .password-modal-input {
+        @apply w-full px-3 py-2 sm:px-4 sm:py-3 bg-space-darker border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500 transition-colors;
+    }
+
+    .password-modal-error {
+        @apply text-red-400 text-sm mt-2 flex items-center gap-2;
+    }
+
+    .password-modal-error-icon {
+        @apply w-4 h-4;
+    }
+
+    .password-modal-buttons {
+        @apply flex gap-2 sm:gap-3 mt-4 sm:mt-6;
+    }
+
+    .password-modal-button-cancel {
+        @apply flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-space-darker border border-gray-600 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors font-medium text-sm sm:text-base;
+    }
+
+    .password-modal-button-exit {
+        @apply flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-sm sm:text-base;
+    }
+
+    .password-modal-button-unlock {
+        @apply flex-1 px-3 py-2 sm:px-4 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-sm sm:text-base;
+    }
+
+    .editable-card-wrapper {
+        @apply relative;
+    }
+
+    .editable-card-dragging {
+        @apply opacity-50;
+    }
+
+    .editable-card-drag-handle {
+        @apply absolute -left-8 top-1/2 -translate-y-1/2 cursor-move text-gray-600 hover:text-gray-400 transition-colors;
+    }
+
+    .editable-card-drag-icon {
+        @apply w-5 h-5;
+    }
+
+    .editable-card-delete {
+        @apply absolute -top-2 -right-2 z-10 bg-red-600 hover:bg-red-700 text-white rounded-full p-1.5 shadow-lg transition-colors;
+    }
+
+    .editable-card-delete-icon {
+        @apply w-4 h-4;
+    }
+
+    .edit-mode-actions-undo {
+        @apply w-10 h-10 flex items-center justify-center rounded-full transition-all;
+    }
+
+    .edit-mode-actions-undo-enabled {
+        @apply bg-space-darker hover:bg-gray-700 text-gray-300 border border-gray-600;
+    }
+
+    .edit-mode-actions-undo-disabled {
+        @apply bg-gray-800 text-gray-600 border border-gray-800 cursor-not-allowed;
+    }
+
+    .edit-mode-actions-save {
+        @apply w-10 h-10 flex items-center justify-center rounded-full transition-all;
+    }
+
+    .edit-mode-actions-save-enabled {
+        @apply bg-green-600 hover:bg-green-700 text-white;
+    }
+
+    .edit-mode-actions-save-disabled {
+        @apply bg-gray-800 text-gray-600 cursor-not-allowed;
+    }
+
+    .edit-mode-actions-save-icon {
+        @apply w-5 h-5;
+    }
+
+    .edit-mode-actions-save-spinner {
+        @apply w-5 h-5 animate-spin;
+    }
+
+    .edit-mode-actions-save-spinner-circle {
+        @apply opacity-25;
+    }
+
+    .edit-mode-actions-save-spinner-path {
+        @apply opacity-75;
+    }
+
+    .edit-mode-actions-add {
+        @apply w-10 h-10 flex items-center justify-center rounded-full bg-space-purple/20 hover:bg-space-purple/40 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .edit-mode-actions-icon {
+        @apply w-5 h-5;
+    }
+
+    .app-container {
+        @apply relative w-full min-h-screen bg-space-darker;
+    }
+
+    .app-stars {
+        @apply relative z-10;
+    }
+
+    .app-header-section {
+        @apply relative min-h-screen;
+    }
+
+    .app-planets-desktop {
+        @apply hidden md:block relative h-screen max-w-7xl mx-auto;
+    }
+
+    .app-planets-mobile {
+        @apply md:hidden relative h-screen max-w-7xl mx-auto;
+    }
+
+    .app-planet-wrapper {
+        @apply absolute;
+    }
+
+    .about-container {
+        @apply h-full flex flex-col space-y-4 md:space-y-6;
+    }
+
+    .about-card {
+        @apply card flex-shrink-0;
+    }
+
+    .about-card-title-welcome {
+        @apply text-lg md:text-xl font-bold text-space-orange mb-2 md:mb-3;
+    }
+
+    .about-card-text {
+        @apply text-gray-300 leading-relaxed text-sm md:text-base whitespace-pre-line;
+    }
+
+    .about-card-title-skills {
+        @apply text-lg md:text-xl font-bold text-space-cyan mb-2 md:mb-3;
+    }
+
+    .about-skills-list {
+        @apply flex flex-wrap gap-1.5 md:gap-2;
+    }
+
+    .about-skill-tag {
+        @apply tech-tag text-xs md:text-sm;
+    }
+
+    .about-card-flex {
+        @apply card flex-1;
+    }
+
+    .about-card-title-interests {
+        @apply text-lg md:text-xl font-bold text-space-pink mb-2 md:mb-3;
+    }
+
+    .about-interests-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3;
+    }
+
+    .about-interest-item {
+        @apply flex items-center gap-2 text-gray-300 text-sm md:text-base;
+    }
+
+    .about-interest-icon {
+        @apply text-space-pink;
+    }
+
+    .contact-container {
+        @apply h-full flex items-center justify-center;
+    }
+
+    .contact-card {
+        @apply card w-full;
+    }
+
+    .contact-title {
+        @apply text-xl md:text-2xl font-bold text-space-purple mb-6 text-center;
+    }
+
+    .contact-form {
+        @apply space-y-4;
+    }
+
+    .contact-label {
+        @apply block text-sm font-medium text-gray-300 mb-1;
+    }
+
+    .contact-input {
+        @apply w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500;
+    }
+
+    .contact-textarea {
+        @apply w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500 resize-none;
+    }
+
+    .contact-button {
+        @apply w-full bg-space-purple hover:bg-space-purple/80 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-space-purple focus:ring-offset-2 focus:ring-offset-space-darker;
+    }
+
+    .editable-about-container {
+        @apply h-full flex flex-col space-y-4 md:space-y-6 pl-8;
+    }
+
+    .editable-about-card {
+        @apply card;
+    }
+
+    .editable-about-title-welcome {
+        @apply text-lg md:text-xl font-bold text-space-orange mb-2 md:mb-3;
+    }
+
+    .editable-about-textarea {
+        @apply text-gray-300 leading-relaxed text-sm md:text-base bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none;
+    }
+
+    .editable-about-textarea:focus {
+        @apply outline-none;
+    }
+
+    .editable-about-textarea::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-about-title-skills {
+        @apply text-lg md:text-xl font-bold text-space-cyan mb-2 md:mb-3;
+    }
+
+    .editable-about-input-wrapper {
+        @apply flex items-center gap-3;
+    }
+
+    .editable-about-input {
+        @apply text-sm text-gray-300 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full;
+    }
+
+    .editable-about-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-about-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-about-skills-preview {
+        @apply flex flex-wrap gap-2 mt-3;
+    }
+
+    .editable-about-skill-tag {
+        @apply tech-tag;
+    }
+
+    .editable-about-card-flex {
+        @apply card flex-1;
+    }
+
+    .editable-about-title-interests {
+        @apply text-lg md:text-xl font-bold text-space-pink mb-2 md:mb-3;
+    }
+
+    .editable-about-interests-preview {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-2 mt-3;
+    }
+
+    .editable-about-interest-item {
+        @apply flex items-center gap-2 text-gray-300 text-sm md:text-base;
+    }
+
+    .editable-about-interest-icon {
+        @apply text-space-pink;
+    }
+
+    .education-container {
+        @apply space-y-6;
+    }
+
+    .education-empty {
+        @apply text-gray-400 text-center py-8;
+    }
+
+    .education-card {
+        @apply card;
+    }
+
+    .education-header {
+        @apply flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3;
+    }
+
+    .education-content {
+        @apply flex items-center gap-3;
+    }
+
+    .education-logo {
+        @apply w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1;
+    }
+
+    .education-degree {
+        @apply text-xl md:text-2xl font-bold text-space-blue;
+    }
+
+    .education-institution {
+        @apply text-lg text-space-cyan font-semibold;
+    }
+
+    .education-field {
+        @apply text-gray-400 text-sm mt-1;
+    }
+
+    .education-duration {
+        @apply duration-text;
+    }
+
+    .education-achievements {
+        @apply space-y-2 mt-4;
+    }
+
+    .education-achievement {
+        @apply flex items-start gap-2 text-gray-300;
+    }
+
+    .education-achievement-icon {
+        @apply text-space-blue;
+    }
+
+    .editable-education-container {
+        @apply space-y-6 pl-8;
+    }
+
+    .editable-education-empty {
+        @apply text-gray-400 text-center py-8;
+    }
+
+    .editable-education-card {
+        @apply card;
+    }
+
+    .editable-education-header {
+        @apply flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3;
+    }
+
+    .editable-education-content {
+        @apply flex items-center gap-3 flex-1;
+    }
+
+    .editable-education-logo {
+        @apply w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1;
+    }
+
+    .editable-education-content-inner {
+        @apply flex-1;
+    }
+
+    .editable-education-degree-input {
+        @apply text-base md:text-lg font-bold text-space-blue bg-transparent border-b border-space-blue/30 focus:border-space-blue w-full;
+    }
+
+    .editable-education-degree-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-education-degree-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-education-institution-input {
+        @apply text-base text-space-cyan font-semibold bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full mt-1;
+    }
+
+    .editable-education-institution-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-education-institution-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-education-field-input {
+        @apply text-gray-400 text-xs md:text-sm bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mt-1;
+    }
+
+    .editable-education-field-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-education-field-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-education-duration-input {
+        @apply duration-text bg-transparent border-b border-gray-600 focus:border-gray-400 text-center;
+    }
+
+    .editable-education-duration-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-education-duration-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-education-achievements-wrapper {
+        @apply mb-2;
+    }
+
+    .editable-education-achievements-label {
+        @apply text-xs text-gray-500 mb-1 block;
+    }
+
+    .editable-education-achievements-textarea {
+        @apply text-xs md:text-sm text-gray-400 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none;
+    }
+
+    .editable-education-achievements-textarea:focus {
+        @apply outline-none;
+    }
+
+    .editable-education-achievements-textarea::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-education-achievements-list {
+        @apply space-y-2 mt-4;
+    }
+
+    .editable-education-achievement {
+        @apply flex items-start gap-2 text-xs md:text-sm text-gray-300;
+    }
+
+    .editable-education-achievement-icon {
+        @apply text-space-blue;
+    }
+
+    .experiences-container {
+        @apply space-y-6;
+    }
+
+    .experiences-empty {
+        @apply text-gray-400 text-center py-8;
+    }
+
+    .experiences-card {
+        @apply card;
+    }
+
+    .experiences-header {
+        @apply flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3;
+    }
+
+    .experiences-content {
+        @apply flex items-center gap-3;
+    }
+
+    .experiences-logo {
+        @apply w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1;
+    }
+
+    .experiences-position {
+        @apply text-xl md:text-2xl font-bold text-space-cyan;
+    }
+
+    .experiences-company {
+        @apply text-lg text-space-purple font-semibold;
+    }
+
+    .experiences-duration {
+        @apply duration-text;
+    }
+
+    .experiences-description {
+        @apply text-gray-300 mb-4 leading-relaxed;
+    }
+
+    .experiences-technologies {
+        @apply flex flex-wrap gap-2;
+    }
+
+    .experiences-tech-tag {
+        @apply tech-tag;
+    }
+
+    .editable-experiences-container {
+        @apply space-y-6 pl-8;
+    }
+
+    .editable-experiences-empty {
+        @apply text-gray-400 text-center py-8;
+    }
+
+    .editable-experiences-card {
+        @apply card;
+    }
+
+    .editable-experiences-header {
+        @apply flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3;
+    }
+
+    .editable-experiences-content {
+        @apply flex items-center gap-3 flex-1;
+    }
+
+    .editable-experiences-logo {
+        @apply w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1;
+    }
+
+    .editable-experiences-content-inner {
+        @apply flex-1;
+    }
+
+    .editable-experiences-position-input {
+        @apply text-base md:text-lg font-bold text-space-cyan bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full;
+    }
+
+    .editable-experiences-position-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-experiences-position-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-experiences-company-input {
+        @apply text-base text-space-purple font-semibold bg-transparent border-b border-space-purple/30 focus:border-space-purple w-full mt-1;
+    }
+
+    .editable-experiences-company-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-experiences-company-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-experiences-duration-input {
+        @apply duration-text bg-transparent border-b border-gray-600 focus:border-gray-400 text-center;
+    }
+
+    .editable-experiences-duration-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-experiences-duration-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-experiences-description-textarea {
+        @apply text-xs md:text-sm text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none;
+    }
+
+    .editable-experiences-description-textarea:focus {
+        @apply outline-none;
+    }
+
+    .editable-experiences-description-textarea::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-experiences-technologies-wrapper {
+        @apply mb-2;
+    }
+
+    .editable-experiences-technologies-label {
+        @apply text-xs text-gray-500 mb-1 block;
+    }
+
+    .editable-experiences-technologies-input {
+        @apply text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full;
+    }
+
+    .editable-experiences-technologies-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-experiences-technologies-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-experiences-technologies-preview {
+        @apply flex flex-wrap gap-2 mt-3;
+    }
+
+    .editable-experiences-tech-tag {
+        @apply tech-tag;
+    }
+
+    .projects-container {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+    }
+
+    .projects-empty {
+        @apply text-gray-400 text-center py-8 col-span-full;
+    }
+
+    .projects-card {
+        @apply card;
+    }
+
+    .projects-name {
+        @apply text-xl md:text-2xl font-bold text-space-pink mb-3;
+    }
+
+    .projects-description {
+        @apply text-gray-300 mb-4 leading-relaxed;
+    }
+
+    .projects-technologies {
+        @apply flex flex-wrap gap-2 mb-4 mt-auto;
+    }
+
+    .projects-tech-tag {
+        @apply tech-tag;
+    }
+
+    .projects-links {
+        @apply flex gap-3;
+    }
+
+    .projects-link {
+        @apply project-link;
+    }
+
+    .projects-link-icon {
+        @apply w-4 h-4;
+    }
+
+    .editable-projects-container {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-6 pl-8;
+    }
+
+    .editable-projects-empty {
+        @apply text-gray-400 text-center py-8;
+    }
+
+    .editable-projects-card {
+        @apply card;
+    }
+
+    .editable-projects-name-input {
+        @apply text-base md:text-lg font-bold text-space-pink mb-3 bg-transparent border-b border-space-pink/30 focus:border-space-pink w-full;
+    }
+
+    .editable-projects-name-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-projects-name-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-projects-description-textarea {
+        @apply text-xs md:text-sm text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none;
+    }
+
+    .editable-projects-description-textarea:focus {
+        @apply outline-none;
+    }
+
+    .editable-projects-description-textarea::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-projects-technologies-wrapper {
+        @apply mb-2;
+    }
+
+    .editable-projects-technologies-label {
+        @apply text-xs text-gray-500 mb-1 block;
+    }
+
+    .editable-projects-technologies-input {
+        @apply text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mb-2;
+    }
+
+    .editable-projects-technologies-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-projects-technologies-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-projects-technologies-preview {
+        @apply flex flex-wrap gap-2 mb-4;
+    }
+
+    .editable-projects-tech-tag {
+        @apply tech-tag;
+    }
+
+    .editable-projects-urls-wrapper {
+        @apply space-y-2 mb-4;
+    }
+
+    .editable-projects-url-input {
+        @apply text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full;
+    }
+
+    .editable-projects-url-input:focus {
+        @apply outline-none;
+    }
+
+    .editable-projects-url-input::placeholder {
+        @apply text-gray-500;
+    }
+
+    .editable-projects-links {
+        @apply flex gap-3;
+    }
+
+    .editable-projects-link {
+        @apply project-link;
+    }
+
+    .editable-projects-link-icon {
+        @apply w-4 h-4;
+    }
+
+    .typing-header-mute-icon {
+        @apply w-5 h-5 lg:w-6 lg:h-6 text-gray-400 group-hover:text-space-cyan transition-colors;
+    }
+
+    .typing-header-social-icon {
+        @apply w-5 h-5 lg:w-6 lg:h-6 text-gray-400 group-hover:text-space-cyan transition-colors;
+    }
+
+    .typing-header-asteroid-wrapper {
+        @apply absolute top-[calc(50%-110px)] right-8 sm:top-[calc(50%-110px)] sm:right-28 md:right-36 lg:right-44 z-30;
+    }
+
+    .typing-header-asteroid {
+        @apply drop-shadow-[0_0_15px_rgba(107,114,128,0.5)] sm:w-[50px] sm:h-[50px];
+    }
+
+    .typing-header-logo-wrapper {
+        @apply astronaut-logo-container;
+    }
+
+    .typing-header-logo {
+        @apply drop-shadow-[0_0_10px_rgba(255,255,255,0.3)];
+    }
+
+    .typing-header-start-wrapper {
+        @apply text-center max-w-4xl px-4;
+    }
+
+    .typing-header-start-inner {
+        @apply relative flex flex-col items-center justify-start;
+        min-height: 350px;
+    }
+
+    .typing-header-start-button-wrapper {
+        @apply h-[200px] flex items-center justify-center w-full -mt-12;
+    }
+
+    .typing-header-messages-inner {
+        @apply fixed-height-container;
+        min-height: 350px;
+    }
+
+    .typing-header-messages-text-wrapper {
+        @apply flex items-start justify-start w-full;
+    }
+
+    .typing-header-messages-text {
+        @apply typing-text;
+    }
+
+    .typing-header-messages-cursor {
+        @apply animate-pulse;
+    }
+
+    .typing-header-messages-actions {
+        @apply mt-6 min-h-[3rem] flex items-center justify-center gap-4;
+    }
+
+    .typing-header-messages-arrow-icon {
+        @apply w-8 h-8 md:w-10 md:h-10 group-hover:translate-x-1 transition-transform duration-300;
+    }
+
+    .typing-header-spacecraft {
+        @apply spacecraft-container cursor-default translate-x-1/2 translate-y-full;
+    }
+
+    .typing-header-spacecraft-svg {
+        @apply w-24 h-12 md:w-32 md:h-16 lg:w-40 lg:h-20 drop-shadow-lg;
     }
 }

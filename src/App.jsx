@@ -339,24 +339,19 @@ function AppContent() {
     };
 
     return (
-        <div className="relative w-full min-h-screen bg-space-darker">
-            {/* Stars bg */}
+        <div className="app-container">
             <StarField starCount={300} />
 
-            {/* Main content */}
-            <div className="relative z-10">
-                {/* Header with typing effect */}
+            <div className="app-stars">
                 <TypingHeader
                     onAsteroidClick={handleAsteroidClick}
                 />
-                {/* Planets container section */}
-                <section id="planets-section" className="relative min-h-screen">
-                    {/* Desktop: absolute positioned planets */}
-                    <div className="hidden md:block relative h-screen max-w-7xl mx-auto">
+                <section id="planets-section" className="app-header-section">
+                    <div className="app-planets-desktop">
                         {destinations.map(dest => (
                             <div
                                 key={dest.id}
-                                className="absolute"
+                                className="app-planet-wrapper"
                                 style={{
                                     top: dest.position.top,
                                     left: dest.position.left,
@@ -370,12 +365,11 @@ function AppContent() {
                         ))}
                     </div>
 
-                    {/* Mobile: Absolute positioned planets */}
-                    <div className="md:hidden relative h-screen max-w-7xl mx-auto">
+                    <div className="app-planets-mobile">
                         {destinations.map(dest => (
                             <div
                                 key={dest.id}
-                                className="absolute"
+                                className="app-planet-wrapper"
                                 style={{
                                     top: dest.mobilePosition.top,
                                     left: dest.mobilePosition.left,

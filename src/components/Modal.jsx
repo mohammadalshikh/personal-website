@@ -67,19 +67,16 @@ const Modal = ({ isOpen, onClose, title, color = 'purple', children, editModeAct
                         {title}
                     </h2>
 
-                    {/* Action buttons - close & edit mode actions */}
-                    <div className="flex flex-wrap items-center justify-end gap-2">
-                        {/* Edit mode actions */}
+                    <div className="modal-header-actions">
                         {editModeActions}
-                        
-                        {/* Close button */}
+
                         <button
                             onClick={onClose}
                             className="btn-close"
                             aria-label="Close modal"
                         >
                             <svg
-                                className="w-6 h-6"
+                                className="modal-close-icon"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"

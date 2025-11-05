@@ -235,7 +235,7 @@ const Planet = ({
 
     return (
         <div
-            className="absolute"
+            className="planet-wrapper"
             style={position}
         >
             <button
@@ -244,14 +244,7 @@ const Planet = ({
                 aria-label={`Open ${name} section`}
             >
                 <div
-                    className={`
-            relative
-            rounded-full 
-            shadow-xl ${glowColorMap[color]}
-            overflow-hidden
-            group-hover:shadow-2xl
-            transition-shadow duration-300
-          `}
+                    className={`planet-texture-wrapper ${glowColorMap[color]}`}
                     style={{ width: `${size}px`, height: `${size}px` }}
                 >
                     {getPlanetTexture(color)}
@@ -264,14 +257,7 @@ const Planet = ({
                 </div>
 
                 <div
-                    className={`
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            border-2 border-white
-            rounded-full
-            opacity-0 group-hover:opacity-100
-            transition-all duration-500
-            pointer-events-none
-          `}
+                    className="planet-hover-ring"
                     style={{
                         width: `${size + 20}px`,
                         height: `${size + 20}px`

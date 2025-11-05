@@ -5,45 +5,45 @@
  */
 const Experiences = ({ experiences = [] }) => {
     return (
-        <div className="space-y-6">
+        <div className="experiences-container">
             {experiences.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No experience entries yet.</p>
+                <p className="experiences-empty">No experience entries yet.</p>
             ) : (
                 experiences.map((exp) => (
-                    <div key={exp.id} className="card">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3">
-                            <div className="flex items-center gap-3">
+                    <div key={exp.id} className="experiences-card">
+                        <div className="experiences-header">
+                            <div className="experiences-content">
                                 {exp.image && (
                                     <img
                                         src={exp.image}
                                         alt={`${exp.company} logo`}
-                                        className="w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1"
+                                        className="experiences-logo"
                                     />
                                 )}
                                 <div>
-                                    <h3 className="text-xl md:text-2xl font-bold text-space-cyan">
+                                    <h3 className="experiences-position">
                                         {exp.position}
                                     </h3>
-                                    <p className="text-lg text-space-purple font-semibold">
+                                    <p className="experiences-company">
                                         {exp.company}
                                     </p>
                                 </div>
                             </div>
-                            <span className="duration-text">
+                            <span className="experiences-duration">
                                 {exp.duration}
                             </span>
                         </div>
 
-                        <p className="text-gray-300 mb-4 leading-relaxed">
+                        <p className="experiences-description">
                             {exp.description}
                         </p>
 
                         {exp.technologies && exp.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2">
+                            <div className="experiences-technologies">
                                 {exp.technologies.map((tech, idx) => (
                                     <span
                                         key={idx}
-                                        className="tech-tag"
+                                        className="experiences-tech-tag"
                                     >
                                         {tech}
                                     </span>

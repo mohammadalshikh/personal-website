@@ -28,15 +28,15 @@ const Contact = () => {
     };
 
     return (
-        <div className="h-full flex items-center justify-center">
-            <div className="card w-full">
-                <h3 className="text-xl md:text-2xl font-bold text-space-purple mb-6 text-center">
+        <div className="contact-container">
+            <div className="contact-card">
+                <h3 className="contact-title">
                     Get in touch
                 </h3>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="contact-form">
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                        <label htmlFor="name" className="contact-label">
                             Name *
                         </label>
                         <input
@@ -44,13 +44,13 @@ const Contact = () => {
                             id="name"
                             name="name"
                             required
-                            className="w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500"
+                            className="contact-input"
                             placeholder="Your name"
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                        <label htmlFor="email" className="contact-label">
                             Email *
                         </label>
                         <input
@@ -58,13 +58,13 @@ const Contact = () => {
                             id="email"
                             name="email"
                             required
-                            className="w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500"
+                            className="contact-input"
                             placeholder="email@example.com"
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
+                        <label htmlFor="message" className="contact-label">
                             Message *
                         </label>
                         <textarea
@@ -72,14 +72,14 @@ const Contact = () => {
                             name="message"
                             required
                             rows="4"
-                            className="w-full px-3 py-2 bg-space-dark border border-space-purple/30 rounded-lg focus:outline-none focus:border-space-purple text-white placeholder-gray-500 resize-none"
+                            className="contact-textarea"
                             placeholder="Your message here..."
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-space-purple hover:bg-space-purple/80 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-space-purple focus:ring-offset-2 focus:ring-offset-space-darker"
+                        className="contact-button"
                     >
                         Send Message
                     </button>

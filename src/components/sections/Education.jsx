@@ -5,45 +5,45 @@
  */
 const Education = ({ education = [] }) => {
     return (
-        <div className="space-y-6">
+        <div className="education-container">
             {education.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No education entries yet.</p>
+                <p className="education-empty">No education entries yet.</p>
             ) : (
                 education.map((edu) => (
-                    <div key={edu.id} className="card">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3">
-                            <div className="flex items-center gap-3">
+                    <div key={edu.id} className="education-card">
+                        <div className="education-header">
+                            <div className="education-content">
                                 {edu.image && (
                                     <img
                                         src={edu.image}
                                         alt={`${edu.institution} logo`}
-                                        className="w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1"
+                                        className="education-logo"
                                     />
                                 )}
                                 <div>
-                                    <h3 className="text-xl md:text-2xl font-bold text-space-blue">
+                                    <h3 className="education-degree">
                                         {edu.degree}
                                     </h3>
-                                    <p className="text-lg text-space-cyan font-semibold">
+                                    <p className="education-institution">
                                         {edu.institution}
                                     </p>
                                     {edu.field && (
-                                        <p className="text-gray-400 text-sm mt-1">
+                                        <p className="education-field">
                                             {edu.field}
                                         </p>
                                     )}
                                 </div>
                             </div>
-                            <span className="duration-text">
+                            <span className="education-duration">
                                 {edu.duration}
                             </span>
                         </div>
 
                         {edu.achievements && edu.achievements.length > 0 && (
-                            <ul className="space-y-2 mt-4">
+                            <ul className="education-achievements">
                                 {edu.achievements.map((achievement, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-gray-300">
-                                        <span className="text-space-blue">▸</span>
+                                    <li key={idx} className="education-achievement">
+                                        <span className="education-achievement-icon">▸</span>
                                         <span>{achievement}</span>
                                     </li>
                                 ))}

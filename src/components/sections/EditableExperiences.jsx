@@ -58,11 +58,11 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
     };
 
     if (experiences.length === 0) {
-        return <p className="text-gray-400 text-center py-8">No experience entries yet. Click + to add one.</p>;
+        return <p className="editable-experiences-empty">No experience entries yet. Click + to add one.</p>;
     }
 
     return (
-        <div className="space-y-6 pl-8">
+        <div className="editable-experiences-container">
             {experiences.map((exp, index) => (
                 <EditableCard
                     key={exp.id}
@@ -71,29 +71,29 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                     onDragStart={handleDragStart}
                     onDrop={handleDrop}
                 >
-                    <div className="card">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3">
-                            <div className="flex items-center gap-3 flex-1">
+                    <div className="editable-experiences-card">
+                        <div className="editable-experiences-header">
+                            <div className="editable-experiences-content">
                                 {exp.image && (
                                     <img
                                         src={exp.image}
                                         alt={`${exp.company} logo`}
-                                        className="w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1"
+                                        className="editable-experiences-logo"
                                     />
                                 )}
-                                <div className="flex-1">
+                                <div className="editable-experiences-content-inner">
                                     <input
                                         type="text"
                                         value={exp.position}
                                         onChange={(e) => handleFieldChange(index, 'position', e.target.value)}
-                                        className="edit-input text-base md:text-lg font-bold text-space-cyan bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full"
+                                        className="editable-experiences-position-input"
                                         placeholder="Position"
                                     />
                                     <input
                                         type="text"
                                         value={exp.company}
                                         onChange={(e) => handleFieldChange(index, 'company', e.target.value)}
-                                        className="edit-input text-base text-space-purple font-semibold bg-transparent border-b border-space-purple/30 focus:border-space-purple w-full mt-1"
+                                        className="editable-experiences-company-input"
                                         placeholder="Company"
                                     />
                                 </div>
@@ -102,7 +102,7 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                                 type="text"
                                 value={exp.duration}
                                 onChange={(e) => handleFieldChange(index, 'duration', e.target.value)}
-                                className="edit-input duration-text bg-transparent border-b border-gray-600 focus:border-gray-400 text-center"
+                                className="editable-experiences-duration-input"
                                 placeholder="Duration"
                             />
                         </div>
@@ -110,27 +110,27 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                         <textarea
                             value={exp.description}
                             onChange={(e) => handleFieldChange(index, 'description', e.target.value)}
-                            className="edit-input text-xs md:text-sm text-gray-300 mb-4 leading-relaxed bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
+                            className="editable-experiences-description-textarea"
                             rows="3"
                             placeholder="Description"
                         />
 
-                        <div className="mb-2">
-                            <label className="text-xs text-gray-500 mb-1 block">Technologies</label>
+                        <div className="editable-experiences-technologies-wrapper">
+                            <label className="editable-experiences-technologies-label">Technologies</label>
                             <input
                                 type="text"
                                 value={Array.isArray(exp.technologies) ? exp.technologies.join(',') : exp.technologies || ''}
                                 onChange={(e) => handleTechnologiesChange(index, e.target.value)}
                                 onBlur={(e) => handleTechnologiesBlur(index, e.target.value)}
-                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border-b border-gray-600 focus:border-gray-400 w-full"
+                                className="editable-experiences-technologies-input"
                                 placeholder="Python,React"
                             />
                         </div>
 
                         {Array.isArray(exp.technologies) && exp.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-3">
+                            <div className="editable-experiences-technologies-preview">
                                 {exp.technologies.map((tech, idx) => (
-                                    <span key={idx} className="tech-tag">
+                                    <span key={idx} className="editable-experiences-tech-tag">
                                         {tech}
                                     </span>
                                 ))}
@@ -139,16 +139,6 @@ const EditableExperiences = ({ experiences = [], onChange }) => {
                     </div>
                 </EditableCard>
             ))}
-
-            <style jsx>{`
-                .edit-input {
-                    outline: none;
-                    transition: border-color 0.2s;
-                }
-                .edit-input::placeholder {
-                    color: #6b7280;
-                }
-            `}</style>
         </div>
     );
 };

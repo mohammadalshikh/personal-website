@@ -43,38 +43,35 @@ const EditableCard = ({
 
     return (
         <div
-            className={`relative ${isDragging ? 'opacity-50' : ''}`}
+            className={`editable-card-wrapper ${isDragging ? 'editable-card-dragging' : ''}`}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
-            {/* Drag Handle */}
             {isDraggable && (
                 <button
                     draggable={true}
                     onDragStart={handleDragStart}
                     onDragEnd={handleDragEnd}
-                    className="absolute -left-8 top-1/2 -translate-y-1/2 cursor-move text-gray-600 hover:text-gray-400 transition-colors"
+                    className="editable-card-drag-handle"
                     aria-label="Drag to reorder"
                 >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="editable-card-drag-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
                 </button>
             )}
 
-            {/* Delete Button */}
             <button
                 onClick={onDelete}
-                className="absolute -top-2 -right-2 z-10 bg-red-600 hover:bg-red-700 text-white rounded-full p-1.5 shadow-lg transition-colors"
+                className="editable-card-delete"
                 title="Delete"
                 aria-label="Delete card"
             >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="editable-card-delete-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
 
-            {/* Card Content */}
             {children}
         </div>
     );

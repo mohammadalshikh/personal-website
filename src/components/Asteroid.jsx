@@ -9,13 +9,12 @@ const Asteroid = ({ size = 60, className = "", onClick }) => {
     return (
         <button
             onClick={onClick}
-            className={`group relative ${className}`}
+            className={`group asteroid-button-group ${className}`}
             style={{ width: `${size}px`, height: `${size}px` }}
             aria-label="Admin access"
         >
-            {/* White circle hover effect */}
             <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
+                className="asteroid-hover-circle"
                 style={{
                     width: `${size + 20}px`,
                     height: `${size + 20}px`
@@ -28,7 +27,7 @@ const Asteroid = ({ size = 60, className = "", onClick }) => {
                 viewBox="0 0 64 64"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="transition-transform duration-300 group-hover:scale-110"
+                className="asteroid-svg"
             >
                 {/* Main asteroid body */}
                 <path

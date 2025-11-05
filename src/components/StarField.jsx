@@ -23,7 +23,7 @@ const StarField = ({ starCount = 200, animated = true }) => {
             {stars.map((star) => (
                 <div
                     key={star.id}
-                    className={`absolute rounded-full bg-white ${animated ? 'animate-twinkle' : ''}`}
+                    className={`star ${animated ? 'animate-twinkle' : ''}`}
                     style={{
                         left: `${star.x}%`,
                         top: `${star.y}%`,

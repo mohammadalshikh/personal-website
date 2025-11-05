@@ -50,11 +50,11 @@ const EditableEducation = ({ education = [], onChange }) => {
     };
 
     if (education.length === 0) {
-        return <p className="text-gray-400 text-center py-8">No education entries yet. Click + to add one.</p>;
+        return <p className="editable-education-empty">No education entries yet. Click + to add one.</p>;
     }
 
     return (
-        <div className="space-y-6 pl-8">
+        <div className="editable-education-container">
             {education.map((edu, index) => (
                 <EditableCard
                     key={edu.id}
@@ -63,36 +63,36 @@ const EditableEducation = ({ education = [], onChange }) => {
                     onDragStart={handleDragStart}
                     onDrop={handleDrop}
                 >
-                    <div className="card">
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3">
-                            <div className="flex items-center gap-3 flex-1">
+                    <div className="editable-education-card">
+                        <div className="editable-education-header">
+                            <div className="editable-education-content">
                                 {edu.image && (
                                     <img
                                         src={edu.image}
                                         alt={`${edu.institution} logo`}
-                                        className="w-12 h-12 md:w-16 md:h-16 object-contain rounded-lg p-1"
+                                        className="editable-education-logo"
                                     />
                                 )}
-                                <div className="flex-1">
+                                <div className="editable-education-content-inner">
                                     <input
                                         type="text"
                                         value={edu.degree}
                                         onChange={(e) => handleFieldChange(index, 'degree', e.target.value)}
-                                        className="edit-input text-base md:text-lg font-bold text-space-blue bg-transparent border-b border-space-blue/30 focus:border-space-blue w-full"
+                                        className="editable-education-degree-input"
                                         placeholder="Degree"
                                     />
                                     <input
                                         type="text"
                                         value={edu.institution}
                                         onChange={(e) => handleFieldChange(index, 'institution', e.target.value)}
-                                        className="edit-input text-base text-space-cyan font-semibold bg-transparent border-b border-space-cyan/30 focus:border-space-cyan w-full mt-1"
+                                        className="editable-education-institution-input"
                                         placeholder="Institution"
                                     />
                                     <input
                                         type="text"
                                         value={edu.field || ''}
                                         onChange={(e) => handleFieldChange(index, 'field', e.target.value)}
-                                        className="edit-input text-gray-400 text-xs md:text-sm bg-transparent border-b border-gray-600 focus:border-gray-400 w-full mt-1"
+                                        className="editable-education-field-input"
                                         placeholder="Field of Study (optional)"
                                     />
                                 </div>
@@ -101,27 +101,27 @@ const EditableEducation = ({ education = [], onChange }) => {
                                 type="text"
                                 value={edu.duration}
                                 onChange={(e) => handleFieldChange(index, 'duration', e.target.value)}
-                                className="edit-input duration-text bg-transparent border-b border-gray-600 focus:border-gray-400 text-center"
+                                className="editable-education-duration-input"
                                 placeholder="Duration"
                             />
                         </div>
 
-                        <div className="mb-2">
-                            <label className="text-xs text-gray-500 mb-1 block">Achievements</label>
+                        <div className="editable-education-achievements-wrapper">
+                            <label className="editable-education-achievements-label">Achievements</label>
                             <textarea
                                 value={(edu.achievements || []).join(',')}
                                 onChange={(e) => handleArrayFieldChange(index, 'achievements', e.target.value)}
-                                className="edit-input text-xs md:text-sm text-gray-400 bg-transparent border border-gray-600 focus:border-gray-400 rounded p-2 w-full resize-none"
+                                className="editable-education-achievements-textarea"
                                 rows="2"
                                 placeholder="Achievement 1,Achievement 2"
                             />
                         </div>
 
                         {edu.achievements && edu.achievements.length > 0 && (
-                            <ul className="space-y-2 mt-4">
+                            <ul className="editable-education-achievements-list">
                                 {edu.achievements.map((achievement, idx) => (
-                                    <li key={idx} className="flex items-start gap-2 text-xs md:text-sm text-gray-300">
-                                        <span className="text-space-blue">▸</span>
+                                    <li key={idx} className="editable-education-achievement">
+                                        <span className="editable-education-achievement-icon">▸</span>
                                         <span>{achievement}</span>
                                     </li>
                                 ))}
@@ -130,16 +130,6 @@ const EditableEducation = ({ education = [], onChange }) => {
                     </div>
                 </EditableCard>
             ))}
-
-            <style jsx>{`
-                .edit-input {
-                    outline: none;
-                    transition: border-color 0.2s;
-                }
-                .edit-input::placeholder {
-                    color: #6b7280;
-                }
-            `}</style>
         </div>
     );
 };
