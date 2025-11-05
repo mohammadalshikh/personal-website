@@ -27,30 +27,11 @@ export default {
                 bold: '700',
             },
             animation: {
-                'float': 'float 6s ease-in-out infinite',
-                'comet': 'comet 8s linear infinite',
-                'comet-horizontal': 'comet-horizontal 12s linear infinite',
                 'twinkle': 'twinkle 2s ease-in-out infinite',
                 'fade-in': 'fade-in 0.3s ease-out',
                 'slide-up': 'slide-up 0.4s ease-out',
             },
             keyframes: {
-                float: {
-                    '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-20px)' },
-                },
-                comet: {
-                    '0%': { transform: 'translateX(-100%) translateY(0)', opacity: '0' },
-                    '10%': { opacity: '1' },
-                    '90%': { opacity: '1' },
-                    '100%': { transform: 'translateX(200vw) translateY(100vh)', opacity: '0' },
-                },
-                'comet-horizontal': {
-                    '0%': { transform: 'translateX(-200px)', opacity: '0' },
-                    '5%': { opacity: '1' },
-                    '95%': { opacity: '1' },
-                    '100%': { transform: 'translateX(100vw)', opacity: '0' },
-                },
                 twinkle: {
                     '0%, 100%': { opacity: '1' },
                     '50%': { opacity: '0.3' },

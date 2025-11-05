@@ -33,11 +33,9 @@ const secondaryMessages = [
 /**
  * TypingHeader - Header with typing animation and audio
  * 
- * @param {function} onBeginExploring - Callback when "Begin Exploring" is clicked
  * @param {function} onAsteroidClick - Callback when asteroid is clicked
- * @returns 
  */
-const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
+const TypingHeader = ({ onAsteroidClick }) => {
 
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
@@ -305,9 +303,6 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
     };
 
     const handleBeginExploring = () => {
-        if (onBeginExploring) {
-            onBeginExploring();
-        }
         // Scroll to planets section
         const planetsSection = document.getElementById('planets-section');
         if (planetsSection) {
@@ -317,7 +312,7 @@ const TypingHeader = ({ onBeginExploring, onAsteroidClick }) => {
 
     return (
         <header className="typing-header">
-            {/* Mute/Unmute button - top left of header */}
+            {/* Mute/Unmute button */}
             <button
                 onClick={() => {
                     setIsMuted(!isMuted);

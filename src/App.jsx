@@ -167,10 +167,6 @@ const sampleData = {
     },
 };
 
-/**
- * 
- * @returns 
- */
 function AppContent() {
     const [activeModal, setActiveModal] = useState(null);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -430,9 +426,6 @@ function AppContent() {
     );
 }
 
-/**
- * Main App component wrapped with EditModeProvider
- */
 function App() {
     return (
         <EditModeProvider initialData={sampleData}>

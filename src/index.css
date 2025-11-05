@@ -167,14 +167,6 @@
         @apply w-10 h-10 flex items-center justify-center rounded-full bg-space-purple/20 hover:bg-space-purple/40 transition-colors duration-300;
     }
 
-    .comet-head {
-        @apply w-2 h-2 rounded-full bg-white shadow-lg shadow-white/50;
-    }
-
-    .comet-tail {
-        @apply absolute top-1/2 right-2 w-24 h-0.5 -translate-y-1/2 bg-gradient-to-r from-white to-transparent opacity-80;
-    }
-
     .tech-tag {
         @apply px-3 py-1 text-[10px] md:text-xs bg-space-purple/20 border border-space-purple/40 rounded-full text-space-cyan;
     }
@@ -325,30 +317,7 @@
         @apply absolute bottom-16 left-4 md:left-48 z-40 transition-all duration-1000;
     }
 
-    /* Floating animation for asteroid */
-    @keyframes float {
 
-        0%,
-        100% {
-            transform: translateY(0px) rotate(0deg);
-        }
-
-        25% {
-            transform: translateY(-10px) rotate(2deg);
-        }
-
-        50% {
-            transform: translateY(-15px) rotate(0deg);
-        }
-
-        75% {
-            transform: translateY(-10px) rotate(-2deg);
-        }
-    }
-
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
-    }
 }
 
 @layer utilities {
@@ -358,46 +327,5 @@
 
     .star-field {
         @apply absolute inset-0 overflow-hidden pointer-events-none;
-    }
-
-    /* Pixelated comet styles */
-    .comet-horizontal {
-        @apply absolute left-0 flex items-center gap-1 animate-comet-horizontal;
-    }
-
-    .comet-pixel-head {
-        @apply flex flex-col gap-0;
-    }
-
-    .pixel-grid {
-        @apply flex flex-col gap-0;
-    }
-
-    .pixel-row {
-        @apply flex gap-0;
-    }
-
-    .pixel {
-        @apply w-2 h-2 bg-yellow-400/60;
-    }
-
-    .pixel.bright {
-        @apply bg-yellow-300/80;
-    }
-
-    .pixel.core {
-        @apply bg-yellow-200;
-    }
-
-    .comet-pixel-tail {
-        @apply flex gap-1;
-    }
-
-    .tail-block {
-        @apply w-8 h-2 bg-yellow-400/50;
-    }
-
-    .tail-block.fade {
-        @apply bg-yellow-400/20;
     }
 }

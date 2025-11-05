@@ -4,9 +4,6 @@ import { fetchData, saveData, validateConfig } from '../services/dataService';
 
 const EditModeContext = createContext();
 
-/**
- * Password verification using SHA-256
- */
 const verifyPassword = (password) => {
     const hash = CryptoJS.SHA256(password).toString();
     const storedHash = import.meta.env.VITE_ADMIN_PASSWORD_HASH;
@@ -76,9 +73,6 @@ export const EditModeProvider = ({ children, initialData }) => {
         setIsDirty(hasChanges);
     }, [data, originalData]);
 
-    /**
-     * Attempt to enter edit mode with password
-     */
     const enterEditMode = (password) => {
         if (verifyPassword(password)) {
             setIsEditMode(true);
@@ -88,9 +82,6 @@ export const EditModeProvider = ({ children, initialData }) => {
         return false;
     };
 
-    /**
-     * Exit edit mode
-     */
     const exitEditMode = () => {
         if (isDirty) {
             const confirmed = window.confirm(
@@ -108,16 +99,10 @@ export const EditModeProvider = ({ children, initialData }) => {
         return true;
     };
 
-    /**
-     * Update data
-     */
     const updateData = (newData) => {
         setData(newData);
     };
 
-    /**
-     * Save changes to backend
-     */
     const saveChanges = async () => {
         if (!configValid) {
             alert('Backend not configured. Changes are only saved locally.');
@@ -141,9 +126,6 @@ export const EditModeProvider = ({ children, initialData }) => {
         }
     };
 
-    /**
-     * Undo all changes
-     */
     const undoChanges = () => {
         if (!isDirty) {
             return;
@@ -159,9 +141,6 @@ export const EditModeProvider = ({ children, initialData }) => {
         }
     };
 
-    /**
-     * Update specific section
-     */
     const updateSection = (section, newValue) => {
         setData((prev) => ({
             ...prev,
@@ -194,9 +173,6 @@ export const EditModeProvider = ({ children, initialData }) => {
     );
 };
 
-/**
- * Hook to use edit mode context
- */
 export const useEditMode = () => {
     const context = useContext(EditModeContext);
     if (!context) {

@@ -3,7 +3,7 @@
  * 
  * @param {string} id - Unique identifier (for future backend)
  * @param {string} name - Planet name
- * @param {string} color - Color theme (purple, blue, cyan, pink, orange)
+ * @param {string} color - Color theme (purple, blue, etc.)
  * @param {object} position - Position object (top/left/right/bottom)
  * @param {number} size - Size in pixels (default: 80)
  * @param {function} onClick - Click handler
