@@ -1,3 +1,5 @@
+import ImageGallery from '../ImageGallery';
+
 /**
  * Projects Component - Displays projects portfolio
  * 
@@ -18,6 +20,10 @@ const Projects = ({ projects = [] }) => {
                         <p className="projects-description">
                             {project.description}
                         </p>
+
+                        {project.screenshots && project.screenshots.length > 0 && (
+                            <ImageGallery images={project.screenshots} />
+                        )}
 
                         {project.technologies && project.technologies.length > 0 && (
                             <div className="projects-technologies">

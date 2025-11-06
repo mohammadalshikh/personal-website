@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import EditableCard from '../EditableCard';
+import ImageUploader from '../ImageUploader';
+
+// Get ImageBB API key from environment variables
+const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
 
 /**
  * EditableProjects - Edit mode version of Projects component
@@ -107,6 +111,13 @@ const EditableProjects = ({ projects = [], onChange }) => {
                                 ))}
                             </div>
                         )}
+
+                        <ImageUploader
+                            images={project.screenshots || []}
+                            onChange={(newImages) => handleFieldChange(index, 'screenshots', newImages)}
+                            apiKey={IMGBB_API_KEY}
+                            id={`project-${project.id || index}`}
+                        />
 
                         <div className="editable-projects-urls-wrapper">
                             <input

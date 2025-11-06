@@ -1665,4 +1665,126 @@
     .typing-header-spacecraft-svg {
         @apply w-24 h-12 md:w-32 md:h-16 lg:w-40 lg:h-20 drop-shadow-lg;
     }
+
+    /* Image Gallery Styles */
+    .image-gallery-container {
+        @apply mb-4;
+    }
+
+    .image-gallery-thumbnails {
+        @apply flex flex-wrap gap-2;
+    }
+
+    .image-gallery-thumbnail {
+        @apply w-20 h-20 rounded-lg overflow-hidden cursor-pointer border-2 border-gray-700 hover:border-space-cyan transition-colors duration-300;
+    }
+
+    .image-gallery-thumbnail-img {
+        @apply w-full h-full object-cover;
+    }
+
+    .image-gallery-modal {
+        @apply fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center;
+    }
+
+    .image-gallery-modal-close {
+        @apply absolute top-4 right-4 z-10 text-white hover:text-space-cyan transition-colors p-2;
+    }
+
+    .image-gallery-modal-close svg {
+        @apply w-8 h-8;
+    }
+
+    .image-gallery-modal-nav {
+        @apply absolute top-1/2 -translate-y-1/2 z-10 text-white hover:text-space-cyan transition-colors p-2;
+    }
+
+    .image-gallery-modal-nav svg {
+        @apply w-12 h-12;
+    }
+
+    .image-gallery-modal-nav-left {
+        @apply left-4;
+    }
+
+    .image-gallery-modal-nav-right {
+        @apply right-4;
+    }
+
+    .image-gallery-modal-content {
+        @apply relative max-w-[90vw] max-h-[90vh] flex flex-col items-center;
+    }
+
+    .image-gallery-modal-img {
+        @apply max-w-full max-h-[85vh] object-contain rounded-lg;
+    }
+
+    .image-gallery-modal-counter {
+        @apply mt-4 text-white text-lg font-medium;
+    }
+
+    /* Image Uploader Styles */
+    .image-uploader-container {
+        @apply mb-4;
+    }
+
+    .image-uploader-dropzone {
+        @apply border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-space-cyan transition-colors duration-300 mb-4;
+    }
+
+    .image-uploader-dropzone-active {
+        @apply border-space-cyan bg-gray-800 bg-opacity-50;
+    }
+
+    .image-uploader-input {
+        @apply hidden;
+    }
+
+    .image-uploader-dropzone-label {
+        @apply flex flex-col items-center gap-2 cursor-pointer text-gray-400;
+    }
+
+    .image-uploader-icon {
+        @apply w-12 h-12;
+    }
+
+    .image-uploader-spinner {
+        @apply w-8 h-8 animate-spin;
+    }
+
+    .image-uploader-hint {
+        @apply text-xs text-gray-500;
+    }
+
+    .image-uploader-error {
+        @apply bg-red-900 bg-opacity-20 border border-red-500 text-red-400 px-4 py-2 rounded mb-4;
+    }
+
+    .image-uploader-preview-container {
+        @apply flex flex-wrap gap-3;
+    }
+
+    .image-uploader-preview {
+        @apply relative w-32 h-32 rounded-lg overflow-hidden border-2 border-gray-700;
+    }
+
+    .image-uploader-preview-img {
+        @apply w-full h-full object-cover;
+    }
+
+    .image-uploader-preview-controls {
+        @apply absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300;
+    }
+
+    .image-uploader-preview-btn {
+        @apply text-white hover:text-space-cyan transition-colors p-1;
+    }
+
+    .image-uploader-preview-btn svg {
+        @apply w-6 h-6;
+    }
+
+    .image-uploader-preview-btn-delete {
+        @apply hover:text-red-400;
+    }
 }
