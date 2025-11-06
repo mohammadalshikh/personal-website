@@ -205,7 +205,7 @@
 
     .typing-header {
         @apply relative flex flex-col items-center justify-center;
-        margin-top: 6vh;
+        margin-top: 8vh;
     }
 
     @media (max-width: 767px) {
