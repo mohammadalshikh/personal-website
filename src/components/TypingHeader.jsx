@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import typingSound from '../assets/typing.mp3';
 import AstronautLogo from './AstronautLogo';
-import Asteroid from './Asteroid';
 import heartSvg from '../assets/heart.svg?raw';
 import { incrementLogCounter } from '../services/dataService';
 
@@ -32,21 +31,18 @@ const secondaryMessages = [
 
 /**
  * TypingHeader - Header with typing animation and audio
- * 
- * @param {function} onAsteroidClick - Callback when asteroid is clicked
  */
-const TypingHeader = ({ onAsteroidClick }) => {
+const TypingHeader = () => {
 
     const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState('');
-    const [isTyping, setIsTyping] = useState(false);
+    const [isTyping, setIsTyping] = useState(true);
     const [showArrow, setShowArrow] = useState(false);
     const [audioReady, setAudioReady] = useState(false);
-    const [userInteracted, setUserInteracted] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
     const [messageMode, setMessageMode] = useState('primary');
     const [showChoiceButtons, setShowChoiceButtons] = useState(false);
-    const [showExploreButton, setShowExploreButton] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const audioRef = useRef(null);
     const typingIntervalRef = useRef(null);
@@ -106,41 +102,48 @@ const TypingHeader = ({ onAsteroidClick }) => {
         };
     }, []);
 
-    // Start typing only when audio is ready AND user has interacted
     useEffect(() => {
-        if (audioReady && userInteracted &&
-            !isTyping && displayedText === '') {
-            setIsTyping(true);
+        if (audioReady &&
+            !isTyping && displayedText && currentMessageIndex < (messageMode === 'primary' ? primaryMessages : secondaryMessages).length) {
+            setShowArrow(true);
         }
-    }, [audioReady, isTyping, displayedText, userInteracted]);
+    }, [audioReady, isTyping, displayedText, currentMessageIndex, messageMode]);
 
-    const handleStartClick = () => {
-        // Increment log counter in background
+    useEffect(() => {
         incrementLogCounter().catch(err => {
             console.error('Failed to increment log counter:', err);
         });
+    }, []);
 
-        // For mobile Safari, force audio ready and unlock it
-        if (audioRef.current) {
-            audioRef.current.load();
-            audioRef.current.play()
-                .then(() => {
-                    audioRef.current.pause();
-                    audioRef.current.currentTime = 0;
-                    setAudioReady(true); // Force ready
-                    setUserInteracted(true);
-                })
-                .catch(() => {
-                    setAudioReady(true);
-                    setUserInteracted(true);
-                });
-        } else {
-            setUserInteracted(true);
-        }
-    };
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 767px)');
+        
+        const handleChange = (e) => {
+            setIsMobile(e.matches);
+            if (e.matches) {
+                // Stop typing on mobile
+                if (isTyping) {
+                    setIsTyping(false);
+                    if (typingIntervalRef.current) {
+                        clearInterval(typingIntervalRef.current);
+                    }
+                    if (audioRef.current) {
+                        audioRef.current.pause();
+                        audioRef.current.currentTime = 0;
+                    }
+                }
+            }
+        };
+
+        setIsMobile(mediaQuery.matches);
+        mediaQuery.addEventListener('change', handleChange);
+
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    }, [isTyping]);
 
     useEffect(() => {
         if (!isTyping) return;
+        if (isMobile) return;
 
         const currentMessages = messageMode === 'primary' ? primaryMessages : secondaryMessages;
         const currentMessage = currentMessages[currentMessageIndex];
@@ -273,7 +276,7 @@ const TypingHeader = ({ onAsteroidClick }) => {
                 audioRef.current.pause();
             }
         };
-    }, [currentMessageIndex, isTyping, isMuted, messageMode]);
+    }, [currentMessageIndex, isTyping, isMuted, messageMode, isMobile]);
 
     const handleArrowClick = () => {
         const currentMessages = messageMode === 'primary' ? primaryMessages : secondaryMessages;
@@ -288,8 +291,6 @@ const TypingHeader = ({ onAsteroidClick }) => {
 
             if (messageMode === 'primary') {
                 setShowChoiceButtons(true); // after primary
-            } else {
-                setShowExploreButton(true); // after secondary
             }
         }
     };
@@ -302,97 +303,71 @@ const TypingHeader = ({ onAsteroidClick }) => {
         setIsTyping(true);
     };
 
-    const handleBeginExploring = () => {
-        // Scroll to planets section
-        const planetsSection = document.getElementById('planets-section');
-        if (planetsSection) {
-            planetsSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     return (
         <header className="typing-header">
-            {/* Mute/Unmute button */}
-            <button
-                onClick={() => {
-                    setIsMuted(!isMuted);
-                    if (!isMuted && audioRef.current && !audioRef.current.paused) {
-                        audioRef.current.pause();
-                    }
-                }}
-                className="mute-button group"
-                aria-label={isMuted ? "Unmute" : "Mute"}
-            >
-                {isMuted ? (
-                    <svg className="typing-header-mute-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                    </svg>
-                ) : (
-                    <svg className="typing-header-mute-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                    </svg>
-                )}
-            </button>
-
-            {/* Social Links */}
-            <div className="social-links">
-                {/* LinkedIn */}
-                <a
-                    href="https://linkedin.com/in/mohammadalshikh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link group"
-                    aria-label="LinkedIn"
+            {/* Name heading with controls */}
+            <div className="name-heading-container">
+                {/* Mute/Unmute button */}
+                <button
+                    onClick={() => {
+                        setIsMuted(!isMuted);
+                        if (!isMuted && audioRef.current && !audioRef.current.paused) {
+                            audioRef.current.pause();
+                        }
+                    }}
+                    className="mute-button group"
+                    aria-label={isMuted ? "Unmute" : "Mute"}
                 >
-                    <svg className="typing-header-social-icon" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>
-                </a>
+                    {isMuted ? (
+                        <svg className="typing-header-mute-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clipRule="evenodd" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                        </svg>
+                    ) : (
+                        <svg className="typing-header-mute-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                    )}
+                </button>
 
-                <a
-                    href="https://github.com/mohammadalshikh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link group"
-                    aria-label="GitHub"
-                >
-                    <svg className="typing-header-social-icon" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                </a>
-            </div>
+                <h1 ref={nameHeadingRef} className="name-heading">
+                    Mohammad<span className="name-break"> </span>Alshikh
+                </h1>
 
-            {/* Name heading */}
-            <h1 ref={nameHeadingRef} className="name-heading">
-                Mohammad<span className="name-break"> </span>Alshikh
-            </h1>
+                {/* Social Links */}
+                <div className="social-links">
+                    {/* LinkedIn */}
+                    <a
+                        href="https://linkedin.com/in/mohammadalshikh"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-link group"
+                        aria-label="LinkedIn"
+                    >
+                        <svg className="typing-header-social-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
 
-            <div className="typing-header-asteroid-wrapper">
-                <Asteroid size={35} className="typing-header-asteroid" onClick={onAsteroidClick} />
+                    <a
+                        href="https://github.com/mohammadalshikh"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-link group"
+                        aria-label="GitHub"
+                    >
+                        <svg className="typing-header-social-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <div className="astronaut-logo-container">
                 <AstronautLogo size={80} className="typing-header-logo" />
             </div>
 
-            {!userInteracted && (
-                <div className="typing-header-start-wrapper">
-                    <div className="typing-header-start-inner" style={{ minHeight: '350px' }}>
-                        <div className="typing-header-start-button-wrapper">
-                            <button
-                                onClick={handleStartClick}
-                                className="start-button"
-                            >
-                                New log entry
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {userInteracted && (
-                <div className="typing-messages-container">
+            <div className="typing-messages-container typing-messages-hide-mobile">
                     <div className="typing-header-messages-inner" style={{ minHeight: '350px' }}>
                         <div className="typing-header-messages-text-wrapper">
                             <p className="typing-text">
@@ -426,72 +401,16 @@ const TypingHeader = ({ onAsteroidClick }) => {
 
                             {/* Choice buttons after primary messages */}
                             {showChoiceButtons && (
-                                <>
-                                    <button
-                                        onClick={handleTellMeMore}
-                                        className="choice-button"
-                                    >
-                                        Tell me more
-                                    </button>
-                                    <button
-                                        onClick={handleBeginExploring}
-                                        className="explore-button"
-                                    >
-                                        Begin exploring
-                                    </button>
-                                </>
-                            )}
-
-                            {/* Single explore button after secondary messages */}
-                            {showExploreButton && (
                                 <button
-                                    onClick={handleBeginExploring}
-                                    className="explore-button"
+                                    onClick={handleTellMeMore}
+                                    className="choice-button"
                                 >
-                                    Begin exploring
+                                    Tell me more
                                 </button>
                             )}
                         </div>
                     </div>
                 </div>
-            )}
-
-            <div
-                className="typing-header-spacecraft"
-                aria-label="Spacecraft decoration"
-            >
-                <svg viewBox="0 0 64 32" className="typing-header-spacecraft-svg">
-                    {/* Main body */}
-                    <path d="M8 16 L20 8 L44 8 L56 16 L44 24 L20 24 Z" fill="#374151" />
-                    <path d="M12 16 L18 10 L42 10 L48 16 L42 22 L18 22 Z" fill="#1f2937" />
-
-                    {/* Forward section */}
-                    <path d="M44 8 L56 16 L44 24 L48 16 Z" fill="#111827" />
-
-                    {/* Cockpit window */}
-                    <ellipse cx="50" cy="16" rx="3" ry="4" fill="#0f172a" />
-                    <ellipse cx="50" cy="16" rx="2" ry="3" fill="#1e293b" opacity="0.8" />
-
-                    {/* Wing details */}
-                    <rect x="20" y="6" width="24" height="2" fill="#6b7280" />
-                    <rect x="20" y="24" width="24" height="2" fill="#6b7280" />
-
-                    {/* Engine pods */}
-                    <rect x="6" y="12" width="6" height="8" rx="1" fill="#4b5563" />
-                    <rect x="52" y="12" width="6" height="8" rx="1" fill="#4b5563" />
-
-                    {/* Engine glow */}
-                    <rect x="4" y="14" width="2" height="4" fill="#3b82f6" opacity="0.6" />
-                    <rect x="58" y="14" width="2" height="4" fill="#3b82f6" opacity="0.6" />
-
-                    {/* Antenna/details */}
-                    <line x1="32" y1="6" x2="32" y2="4" stroke="#9ca3af" strokeWidth="1" />
-                    <circle cx="32" cy="3" r="1" fill="#9ca3af" />
-
-                    {/* Subtle highlight */}
-                    <path d="M12 14 L18 12 L42 12 L46 14 L42 16 L18 16 Z" fill="#ffffff" opacity="0.1" />
-                </svg>
-            </div>
         </header>
     );
 };

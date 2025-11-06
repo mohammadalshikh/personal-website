@@ -1,7 +1,9 @@
 /**
  * Contact Component - Contact form
+ * 
+ * @param {function} onClose - Function to close the modal
  */
-const Contact = () => {
+const Contact = ({ onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -18,6 +20,12 @@ const Contact = () => {
                 if (response.ok) {
                     alert('Message sent successfully!');
                     form.reset();
+                    // Close the modal after successful send
+                    if (onClose) {
+                        setTimeout(() => {
+                            onClose();
+                        }, 500); // Small delay to allow user to see the success message
+                    }
                 } else {
                     alert('Failed to send message. Please try again.');
                 }

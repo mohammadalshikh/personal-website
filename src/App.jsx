@@ -178,7 +178,6 @@ function AppContent() {
             window.history.scrollRestoration = 'manual';
         }
 
-        // Force scroll to top immediately
         window.scrollTo(0, 0);
 
         const timer = setTimeout(() => {
@@ -188,47 +187,50 @@ function AppContent() {
         return () => clearTimeout(timer);
     }, []);
 
-    const destinations = [
-        {
-            id: 'about',
-            name: 'About Me',
-            color: 'blue',
-            size: 140,
-            position: { top: '25%', left: '15%' },
-            mobilePosition: { top: '20%', left: '10%' }
-        },
+    const destinationsDesktop = [
         {
             id: 'experiences',
             name: 'Experience',
             color: 'orange',
             size: 160,
-            position: { top: '25%', right: '15%' },
-            mobilePosition: { top: '20%', right: '10%' }
+            position: { top: '33vh', left: '50%', transform: 'translateX(-50%)' }
         },
         {
-            id: 'education',
-            name: 'Education',
-            color: 'purple',
-            size: 130,
-            position: { top: '60%', left: '20%' },
-            mobilePosition: { top: '55%', left: '10%' }
+            id: 'about',
+            name: 'About Me',
+            color: 'blue',
+            size: 140,
+            position: { top: '25vh', left: '12%' }
         },
         {
             id: 'contact',
             name: 'Contact',
             color: 'pink',
             size: 150,
-            position: { top: '60%', right: '20%' },
-            mobilePosition: { top: '55%', right: '10%' }
+            position: { top: '25vh', right: '12%' }
+        },
+        {
+            id: 'education',
+            name: 'Education',
+            color: 'purple',
+            size: 130,
+            position: { top: '31vh', left: '27%' }
         },
         {
             id: 'projects',
             name: 'Projects',
             color: 'cyan',
             size: 120,
-            position: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' },
-            mobilePosition: { top: '45%', left: '50%', transform: 'translateX(-50%)' }
+            position: { top: '31vh', right: '27%' }
         },
+    ];
+
+    const destinationsMobile = [
+        destinationsDesktop.find(d => d.id === 'about'),
+        destinationsDesktop.find(d => d.id === 'contact'),
+        destinationsDesktop.find(d => d.id === 'education'),
+        destinationsDesktop.find(d => d.id === 'experiences'),
+        destinationsDesktop.find(d => d.id === 'projects'),
     ];
 
     const handlePlanetClick = (planetId) => {
@@ -309,7 +311,7 @@ function AppContent() {
                     <Projects projects={data.projects} />
                 );
             case 'contact':
-                return <Contact />;
+                return <Contact onClose={handleCloseModal} />;
             default:
                 return null;
         }
@@ -329,12 +331,12 @@ function AppContent() {
     };
 
     const getModalTitle = () => {
-        const destination = destinations.find(d => d.id === activeModal);
+        const destination = destinationsDesktop.find(d => d.id === activeModal);
         return destination ? destination.name : '';
     };
 
     const getModalColor = () => {
-        const destination = destinations.find(d => d.id === activeModal);
+        const destination = destinationsDesktop.find(d => d.id === activeModal);
         return destination ? destination.color : 'purple';
     };
 
@@ -342,52 +344,46 @@ function AppContent() {
         <div className="app-container">
             <StarField starCount={300} />
 
-            <div className="app-stars">
-                <TypingHeader
-                    onAsteroidClick={handleAsteroidClick}
-                />
-                <section id="planets-section" className="app-header-section">
-                    <div className="app-planets-desktop">
-                        {destinations.map(dest => (
-                            <div
-                                key={dest.id}
-                                className="app-planet-wrapper"
-                                style={{
-                                    top: dest.position.top,
-                                    left: dest.position.left,
-                                    right: dest.position.right,
-                                    bottom: dest.position.bottom,
-                                    transform: dest.position.transform
-                                }}
-                            >
-                                <Planet {...dest} onClick={handlePlanetClick} />
-                            </div>
-                        ))}
+            <div className="app-planets-desktop">
+                {destinationsDesktop.map(dest => (
+                    <div
+                        key={dest.id}
+                        className="app-planet-wrapper"
+                        style={{
+                            top: dest.position.top,
+                            left: dest.position.left,
+                            right: dest.position.right,
+                            bottom: dest.position.bottom,
+                            transform: dest.position.transform
+                        }}
+                    >
+                        <Planet 
+                            {...dest} 
+                            onClick={handlePlanetClick}
+                            onAsteroidClick={dest.id === 'contact' ? handleAsteroidClick : undefined}
+                        />
                     </div>
+                ))}
+            </div>
 
-                    <div className="app-planets-mobile">
-                        {destinations.map(dest => (
-                            <div
-                                key={dest.id}
-                                className="app-planet-wrapper"
-                                style={{
-                                    top: dest.mobilePosition.top,
-                                    left: dest.mobilePosition.left,
-                                    right: dest.mobilePosition.right,
-                                    bottom: dest.mobilePosition.bottom,
-                                    transform: dest.mobilePosition.transform
-                                }}
-                            >
-                                <Planet
-                                    {...dest}
-                                    size={
-                                        Math.max(100, dest.size * 0.6)
-                                    }
-                                    onClick={handlePlanetClick} />
-                            </div>
-                        ))}
+            <div className="app-planets-mobile">
+                {destinationsMobile.map(dest => (
+                    <div
+                        key={dest.id}
+                        className="app-planet-wrapper"
+                    >
+                        <Planet
+                            {...dest}
+                            size={Math.max(80, dest.size * 0.5)}
+                            onClick={handlePlanetClick}
+                            onAsteroidClick={dest.id === 'contact' ? handleAsteroidClick : undefined}
+                        />
                     </div>
-                </section>
+                ))}
+            </div>
+
+            <div className="app-stars">
+                <TypingHeader />
             </div>
 
             {/* Content modal */}

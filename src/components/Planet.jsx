@@ -1,3 +1,5 @@
+import Asteroid from './Asteroid';
+
 /**
  * Planet Component - Represents a clickable destination/section
  * 
@@ -7,6 +9,7 @@
  * @param {object} position - Position object (top/left/right/bottom)
  * @param {number} size - Size in pixels (default: 80)
  * @param {function} onClick - Click handler
+ * @param {function} onAsteroidClick - Asteroid click handler (for contact planet)
  */
 const Planet = ({
     id,
@@ -14,7 +17,8 @@ const Planet = ({
     color = 'purple',
     position,
     size = 80,
-    onClick
+    onClick,
+    onAsteroidClick
 }) => {
     // Planet texture patterns
     const getPlanetTexture = (color) => {
@@ -238,6 +242,21 @@ const Planet = ({
             className="planet-wrapper"
             style={position}
         >
+            {id === 'contact' && onAsteroidClick && (
+                <div 
+                    className="planet-asteroid-wrapper"
+                    style={{
+                        position: 'absolute',
+                        top: `-${size * 0.6}px`,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 10
+                    }}
+                >
+                    <Asteroid size={35} className="planet-asteroid" onClick={onAsteroidClick} />
+                </div>
+            )}
+
             <button
                 onClick={() => onClick?.(id)}
                 className="planet-button group"
