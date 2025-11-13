@@ -39,7 +39,7 @@ const TypingHeader = () => {
     const [isTyping, setIsTyping] = useState(true);
     const [showArrow, setShowArrow] = useState(false);
     const [audioReady, setAudioReady] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
     const [messageMode, setMessageMode] = useState('primary');
     const [showChoiceButtons, setShowChoiceButtons] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
