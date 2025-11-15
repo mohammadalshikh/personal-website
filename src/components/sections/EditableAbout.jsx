@@ -71,7 +71,7 @@ const EditableAbout = ({ about = {}, onChange }) => {
                     onChange={(e) => handleArrayChange('interests', e.target.value)}
                     onBlur={(e) => handleArrayBlur('interests', e.target.value)}
                     className="editable-about-input"
-                    placeholder="Movies, Gaming, Hiking"
+                    placeholder="Interests"
                 />
 
                 {Array.isArray(about.interests) && about.interests.length > 0 && (

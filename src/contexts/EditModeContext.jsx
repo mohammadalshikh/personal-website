@@ -14,7 +14,7 @@ const verifyPassword = (password) => {
  * EditModeProvider - Manages edit mode state and data synchronization
  * 
  * @param {Object} children - Child components
- * @param {Object} initialData - Sample data (fallback if fetch fails)
+ * @param {Object} initialData - Fallback data (if fetch fails)
  */
 export const EditModeProvider = ({ children, initialData }) => {
     const [isEditMode, setIsEditMode] = useState(false);
